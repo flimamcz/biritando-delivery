@@ -1,9 +1,9 @@
-import registerService from '../services/registerService';
+import userService from '../services/usersService';
 
 const register = async (req, res) => {
   const { nome, email, senha } = req.body;
 
-  const newRegistro = await registerService.register(nome, email, senha);
+  const newRegistro = await userService.register(nome, email, senha);
 
   if (newRegistro.type) return res.status(404).json({ message: newRegistro.messsage });
 
