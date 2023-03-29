@@ -25,7 +25,7 @@ const ProductModel = (sequelize, DataTypes) => {
         field: "url_image",
       },
     },
-    { underscored: true, timestamps: false, tableName: 'products'  }
+    { underscored: true, timestamps: false, tableName: 'products' }
   );
 
   return Product;
