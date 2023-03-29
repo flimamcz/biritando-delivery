@@ -29,7 +29,7 @@ const UserModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
     },
-    { timestamps: false, tableName: 'users' },
+    { timestamps: false, tableName: 'users', }
   );
 
   return User;
