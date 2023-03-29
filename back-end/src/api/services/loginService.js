@@ -5,7 +5,6 @@ const usersService = require('./usersService');
 
 const newLogin = async (email, password) => {  
   const passwordHash = md5(password);
-  console.log(passwordHash);
   const user = await usersService.getUserByEmail(email);
   
   if (!user || user.password !== passwordHash) {

@@ -14,14 +14,22 @@ function LoginForm() {
 
   const { emailInput, passwordInput } = formsInfo;
 
-  if (isLogged) return <Redirect to="/matches" />;
+  if (isLogged) {
+    const { role } = JSON.parse(localStorage.getItem('user'));
+    switch (role) {
+    case 'administrator': return <Redirect to={ `/${role}/manage` } />;
+    case 'customer': return <Redirect to={ `/${role}/products` } />;
+    case 'seller': return <Redirect to={ `/${role}/orders` } />;
+    default: return <Redirect to="/" />;
+    }
+  }
 
   return (
     <form>
       <label htmlFor="email-input">
         Login
         <input
-          type="text"
+          type="email"
           name="emailInput"
           id="email-input"
           onChange={ handleChange }
@@ -31,7 +39,7 @@ function LoginForm() {
       <label htmlFor="password-input">
         Password
         <input
-          type="text"
+          type="password"
           name="passwordInput"
           id="password-input"
           onChange={ handleChange }
@@ -41,7 +49,7 @@ function LoginForm() {
       {
         (failedTryLogin)
           ? (
-            <p data-testid="login__input_invalid_login_alert">
+            <p data-testid="common_login__element-invalid-email">
               {
                 `O endereço de e-mail ou a senha não estão corretos.
               Por favor, tente novamente.`
@@ -50,20 +58,25 @@ function LoginForm() {
           )
           : null
       }
-      <input
+      <button
         type="submit"
-        value="LOGIN"
         disabled={ isLoginDisabled }
         onClick={ (event) => login(event, {
           email: emailInput,
           password: passwordInput,
         }) }
-      />
-      <input
+        data-testid="common_login__button-login"
+      >
+        LOGIN
+      </button>
+      <button
         type="button"
-        value="Ainda não tenho conta"
+        id="register-btn"
         onClick={ () => history.push('/register') }
-      />
+        data-testid="common_login__button-register"
+      >
+        Ainda não tenho conta
+      </button>
     </form>
   );
 }
