@@ -17,8 +17,7 @@ function Provider({ children }) {
     const Regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const verifyEmail = Regex.test(emailInput);
     const number = 6;
-    const verifyUser = passwordInput.length > number;
-    console.log('validate:', !(verifyEmail && verifyUser));
+    const verifyUser = passwordInput.length >= number;
     toggleLoginButton(!(verifyEmail && verifyUser));
   }, [formsInfo]);
 
@@ -35,7 +34,7 @@ function Provider({ children }) {
     event.preventDefault();
     try {
       const user = await requestLogin('/login', info);
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
       setToken(user.token);
       setIsLogged(true);
     } catch (error) {
