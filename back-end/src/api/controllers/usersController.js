@@ -1,4 +1,4 @@
-import userService from '../services/usersService';
+const userService = require('../services/usersService');
 
 const register = async (req, res) => {
   const { nome, email, senha } = req.body;
@@ -10,4 +10,4 @@ const register = async (req, res) => {
   return res.status(201).json(newRegistro);
 };
 
-export default register;
+module.exports = { register };
