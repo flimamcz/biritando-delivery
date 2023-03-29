@@ -52,7 +52,7 @@ const SalesModel = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
-    { underscored: true, timestamps: false }
+    { underscored: true, timestamps: false, tableName: 'sales' }
   );
 
   Sales.associate = ({ User }) => {
