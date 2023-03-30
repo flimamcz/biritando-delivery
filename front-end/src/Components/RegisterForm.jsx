@@ -36,6 +36,7 @@ export default function RegisterForm() {
       registerNameInput: '',
       registerEmailInput: '',
       registerPasswordInput: '',
+      role: '',
     });
   }, []);
 

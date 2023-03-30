@@ -20,6 +20,7 @@ function LoginForm() {
       registerNameInput: '',
       registerEmailInput: '',
       registerPasswordInput: '',
+      role: '',
     });
   }, []);
 
