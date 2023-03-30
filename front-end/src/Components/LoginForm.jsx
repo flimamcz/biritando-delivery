@@ -1,5 +1,5 @@
 // import PropTypes from 'prop-types'
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
@@ -8,11 +8,22 @@ function LoginForm() {
     handleChange, login,
     formsInfo, failedTryLogin,
     isLogged, isLoginDisabled,
+    setFormsInfo,
   } = useContext(MyContext);
 
   const history = useHistory();
 
-  const { emailInput, passwordInput } = formsInfo;
+  useEffect(() => {
+    setFormsInfo({
+      loginEmailInput: '',
+      loginPasswordInput: '',
+      registerNameInput: '',
+      registerEmailInput: '',
+      registerPasswordInput: '',
+    });
+  }, []);
+
+  const { loginEmailInput, loginPasswordInput } = formsInfo;
 
   if (isLogged) {
     const { role } = JSON.parse(localStorage.getItem('user'));
@@ -30,7 +41,7 @@ function LoginForm() {
         Login
         <input
           type="email"
-          name="emailInput"
+          name="loginEmailInput"
           id="email-input"
           onChange={ handleChange }
           data-testid="common_login__input-email"
@@ -40,7 +51,7 @@ function LoginForm() {
         Password
         <input
           type="password"
-          name="passwordInput"
+          name="loginPasswordInput"
           id="password-input"
           onChange={ handleChange }
           data-testid="common_login__input-password"
@@ -62,8 +73,8 @@ function LoginForm() {
         type="submit"
         disabled={ isLoginDisabled }
         onClick={ (event) => login(event, {
-          email: emailInput,
-          password: passwordInput,
+          email: loginEmailInput,
+          password: loginPasswordInput,
         }) }
         data-testid="common_login__button-login"
       >

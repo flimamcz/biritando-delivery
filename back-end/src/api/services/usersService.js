@@ -14,7 +14,7 @@ const register = async (name, email, password, role) => {
 
   const isUser = await getUserByEmail(email);
 
-  if (isUser) return { type: 'errorAoCriar', message: 'User already exists' };
+  if (isUser) return { status: 409, message: 'User already exists' };
 
   const newUser = await User.create({ 
     name, 
@@ -23,7 +23,7 @@ const register = async (name, email, password, role) => {
     role: role || 'customer',
   });
 
-  if (!newUser) return { type: 'errorAoCriar', message: 'Error' };
+  if (!newUser) return { status: 404, message: 'Error' };
 
   const token = jwt.sign({ data: { name, email } }, auth.secret, { expiresIn: auth.expires });
 
