@@ -51,6 +51,7 @@ function Provider({ children }) {
     try {
       const user = await requestLogin('/login', info);
       localStorage.setItem('user', JSON.stringify(user));
+
       setToken(user.token);
       setIsLogged(true);
     } catch (error) {
