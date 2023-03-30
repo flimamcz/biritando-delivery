@@ -11,6 +11,7 @@ function Login() {
   useEffect(() => {
     getProducts();
   }, []);
+
   if (!isLogged) {
     return <Redirect to="/login" />;
   }
@@ -20,7 +21,7 @@ function Login() {
       <Navbar navbarsLinksName={ navbarsLinksNameProducts } />
       <div>
         {productsData.map((product) => (
-          <ProductsCard dataProduct={ product } key={ product.id } />
+          <ProductsCard dataProduct={ product } key={ Math.random() } />
         ))}
       </div>
     </div>

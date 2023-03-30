@@ -3,7 +3,6 @@ import React from 'react';
 
 function ProductsCard(props) {
   const { dataProduct: { id, name, price, urlImage } } = props;
-  console.log(props);
   return (
     <div>
       <div key={ id } className="card">

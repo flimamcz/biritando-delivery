@@ -20,9 +20,14 @@ function Navbar(props) {
         ))
       }
 
-      <h3>{name}</h3>
+      <h3 data-testid="customer_products__element-navbar-user-full-name">{name}</h3>
 
-      <button type="button">Sair</button>
+      <button
+        data-testid="customer_products__element-navbar-link-logout"
+        type="button"
+      >
+        Sair
+      </button>
     </nav>
   );
 }

@@ -77,6 +77,17 @@ function Provider({ children }) {
     validateRegisterInputs();
   }, [validateRegisterInputs]);
 
+  useEffect(() => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      if (token) {
+        setIsLogged(true);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
   const contextValue = useMemo(
     () => ({
       handleChange,
@@ -91,6 +102,7 @@ function Provider({ children }) {
       toggleRegisterButton,
       productsData,
       getProducts,
+      setIsLogged,
     }),
     [
       handleChange,
@@ -103,6 +115,7 @@ function Provider({ children }) {
       isRegisterDisabled,
       productsData,
       getProducts,
+      setIsLogged,
     ],
   );
 
