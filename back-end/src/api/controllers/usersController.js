@@ -1,11 +1,13 @@
 const userService = require('../services/usersService');
 
 const register = async (req, res) => {
-  const { nome, email, senha } = req.body;
+  const { name, email, password } = req.body;
 
-  const newRegistro = await userService.register(nome, email, senha);
+  const newRegistro = await userService.register(name, email, password);
 
-  if (newRegistro.type) return res.status(404).json({ message: newRegistro.messsage });
+  if (newRegistro.status) {
+    return res.status(newRegistro.status).json({ message: newRegistro.messsage });
+  }
 
   return res.status(201).json(newRegistro);
 };

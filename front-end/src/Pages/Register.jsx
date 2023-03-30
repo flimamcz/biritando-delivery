@@ -1,8 +1,13 @@
 import React from 'react';
+import RegisterForm from '../Components/RegisterForm';
+// import { useHistory } from 'react-router-dom';
 
 function Register() {
   return (
-    <h1>REGISTER</h1>
+    <div>
+      <h1> Cadastro </h1>
+      <RegisterForm />
+    </div>
   );
 }
 
