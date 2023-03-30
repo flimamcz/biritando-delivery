@@ -14,10 +14,9 @@ function Provider({ children }) {
     registerNameInput: '',
     registerEmailInput: '',
     registerPasswordInput: '',
-
   });
 
-  const validateInputs = useCallback(() => {
+  const validateLoginInputs = useCallback(() => {
     const { loginEmailInput, loginPasswordInput } = formsInfo;
     const Regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
     const verifyEmail = Regex.test(loginEmailInput);
@@ -61,8 +60,8 @@ function Provider({ children }) {
   }, []);
 
   useEffect(() => {
-    validateInputs();
-  }, [validateInputs]);
+    validateLoginInputs();
+  }, [validateLoginInputs]);
 
   useEffect(() => {
     validateRegisterInputs();

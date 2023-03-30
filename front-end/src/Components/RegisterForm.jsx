@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { requestLogin } from '../services/request';
 
@@ -11,16 +11,19 @@ export default function RegisterForm() {
 
   const [failedRequest, setFailedRequest] = useState(false);
 
+  const history = useHistory();
+
   const dataUser = {
-    name: formsInfo.nameInput,
-    email: formsInfo.emailInput,
-    password: formsInfo.passwordInput,
+    name: formsInfo.registerNameInput,
+    email: formsInfo.registerEmailInput,
+    password: formsInfo.registerPasswordInput,
   };
 
   const sendRegisterRequest = async (event) => {
     event.preventDefault();
     try {
       await requestLogin('register', dataUser);
+      history.push('/customer/products');
     } catch (error) {
       setFailedRequest(true);
     }
