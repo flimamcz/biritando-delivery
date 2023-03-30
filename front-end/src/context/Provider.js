@@ -16,6 +16,7 @@ function Provider({ children }) {
     registerPasswordInput: '',
   });
 
+
   const validateLoginInputs = useCallback(() => {
     const { loginEmailInput, loginPasswordInput } = formsInfo;
     const Regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
