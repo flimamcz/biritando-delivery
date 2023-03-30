@@ -23,7 +23,7 @@ function LoginForm() {
     });
   }, []);
 
-  const { emailInput, passwordInput } = formsInfo;
+  const { loginEmailInput, loginPasswordInput } = formsInfo;
 
   if (isLogged) {
     const { role } = JSON.parse(localStorage.getItem('user'));
@@ -73,8 +73,8 @@ function LoginForm() {
         type="submit"
         disabled={ isLoginDisabled }
         onClick={ (event) => login(event, {
-          email: emailInput,
-          password: passwordInput,
+          email: loginEmailInput,
+          password: loginPasswordInput,
         }) }
         data-testid="common_login__button-login"
       >
