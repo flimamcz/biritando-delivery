@@ -6,19 +6,35 @@ import MyContext from './MyContext';
 function Provider({ children }) {
   const [isLogged, setIsLogged] = useState(false);
   const [isLoginDisabled, toggleLoginButton] = useState(true);
+  const [isRegisterDisabled, toggleRegisterButton] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const [formsInfo, setFormsInfo] = useState({
-    emailInput: '',
-    passwordInput: '',
+    loginEmailInput: '',
+    loginPasswordInput: '',
+    registerNameInput: '',
+    registerEmailInput: '',
+    registerPasswordInput: '',
+
   });
 
   const validateInputs = useCallback(() => {
-    const { emailInput, passwordInput } = formsInfo;
-    const Regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    const verifyEmail = Regex.test(emailInput);
+    const { loginEmailInput, loginPasswordInput } = formsInfo;
+    const Regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
+    const verifyEmail = Regex.test(loginEmailInput);
     const number = 6;
-    const verifyUser = passwordInput.length >= number;
+    const verifyUser = loginPasswordInput.length >= number;
     toggleLoginButton(!(verifyEmail && verifyUser));
+  }, [formsInfo]);
+
+  const validateRegisterInputs = useCallback(() => {
+    const { registerEmailInput, registerPasswordInput, registerNameInput } = formsInfo;
+    const Regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
+    const verifyEmail = Regex.test(registerEmailInput);
+    const minPassword = 6;
+    const minName = 12;
+    const verifyUser = registerPasswordInput.length >= minPassword;
+    const verifyName = registerNameInput.length >= minName;
+    toggleRegisterButton(!(verifyEmail && verifyUser && verifyName));
   }, [formsInfo]);
 
   const handleChange = useCallback(
@@ -47,6 +63,10 @@ function Provider({ children }) {
     validateInputs();
   }, [validateInputs]);
 
+  useEffect(() => {
+    validateRegisterInputs();
+  }, [validateRegisterInputs]);
+
   const contextValue = useMemo(
     () => ({
       handleChange,
@@ -55,8 +75,10 @@ function Provider({ children }) {
       login,
       isLogged,
       failedTryLogin,
-      validateInputs,
       isLoginDisabled,
+      isRegisterDisabled,
+      toggleLoginButton,
+      toggleRegisterButton,
     }),
     [
       handleChange,
@@ -65,8 +87,8 @@ function Provider({ children }) {
       login,
       isLogged,
       failedTryLogin,
-      validateInputs,
       isLoginDisabled,
+      isRegisterDisabled,
     ],
   );
 
