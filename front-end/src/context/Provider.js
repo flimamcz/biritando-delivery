@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { requestLogin, setToken } from '../services/request';
+import { requestGet, requestLogin, setToken } from '../services/request';
 import MyContext from './MyContext';
 
 function Provider({ children }) {
   const [isLogged, setIsLogged] = useState(false);
+  const [productsData, setProductsData] = useState([{}]);
   const [isLoginDisabled, toggleLoginButton] = useState(true);
   const [isRegisterDisabled, toggleRegisterButton] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -35,6 +36,15 @@ function Provider({ children }) {
     const verifyName = registerNameInput.length >= minName;
     toggleRegisterButton(!(verifyEmail && verifyUser && verifyName));
   }, [formsInfo]);
+
+  const getProducts = useCallback(async () => {
+    try {
+      const productsList = await requestGet('/customer/products');
+      setProductsData(productsList);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
 
   const handleChange = useCallback(
     ({ target }) => {
@@ -79,6 +89,8 @@ function Provider({ children }) {
       isRegisterDisabled,
       toggleLoginButton,
       toggleRegisterButton,
+      productsData,
+      getProducts,
     }),
     [
       handleChange,
@@ -89,6 +101,8 @@ function Provider({ children }) {
       failedTryLogin,
       isLoginDisabled,
       isRegisterDisabled,
+      productsData,
+      getProducts,
     ],
   );
 

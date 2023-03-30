@@ -9,8 +9,14 @@ function Navbar(props) {
   return (
     <nav>
       {
-        navbarsLinksName.map((linkName, index) => (
-          <Link to={ `/${linkName}` } key={ index }>{linkName}</Link>
+        navbarsLinksName.map(({ linkName, linkUrl, dataTestid }, index) => (
+          <Link
+            to={ `/${linkUrl}` }
+            key={ index }
+            data-testid={ `customer_products__element-navbar-link-${dataTestid}` }
+          >
+            {linkName}
+          </Link>
         ))
       }
 
@@ -22,9 +28,7 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
-  navbarsLinksName: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
+  navbarsLinksName: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default Navbar;
