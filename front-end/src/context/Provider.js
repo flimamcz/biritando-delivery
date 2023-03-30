@@ -14,7 +14,7 @@ function Provider({ children }) {
 
   const validateInputs = useCallback(() => {
     const { emailInput, passwordInput } = formsInfo;
-    const Regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const Regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/gi;
     const verifyEmail = Regex.test(emailInput);
     const number = 6;
     const verifyUser = passwordInput.length >= number;
