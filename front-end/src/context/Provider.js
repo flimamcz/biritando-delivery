@@ -86,7 +86,7 @@ function Provider({ children }) {
   const logOut = useCallback(async (event) => {
     event.preventDefault();
     try {
-      localStorage.removeItem('user');
+      localStorage.clear();
 
       setToken(null);
       setIsLogged(false);

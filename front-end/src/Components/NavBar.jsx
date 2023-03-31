@@ -6,7 +6,7 @@ import MyContext from '../context/MyContext';
 
 function Navbar() {
   const [username, setUsername] = useState('');
-  const { logout } = useContext(MyContext);
+  const { logOut } = useContext(MyContext);
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('user'))) {
@@ -42,7 +42,7 @@ function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
-        onClick={ logout }
+        onClick={ logOut }
       >
         Sair
       </button>
