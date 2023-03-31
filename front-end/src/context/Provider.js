@@ -14,6 +14,7 @@ function Provider({ children }) {
     registerNameInput: '',
     registerEmailInput: '',
     registerPasswordInput: '',
+    role: '',
   });
 
   const validateLoginInputs = useCallback(() => {
@@ -59,6 +60,18 @@ function Provider({ children }) {
     }
   }, []);
 
+  const logOut = useCallback(async (event) => {
+    event.preventDefault();
+    try {
+      localStorage.removeItem('user');
+
+      setToken(null);
+      setIsLogged(false);
+    } catch (error) {
+      setIsLogged(false);
+    }
+  }, []);
+
   useEffect(() => {
     validateLoginInputs();
   }, [validateLoginInputs]);
@@ -73,6 +86,7 @@ function Provider({ children }) {
       formsInfo,
       setFormsInfo,
       login,
+      logOut,
       isLogged,
       failedTryLogin,
       isLoginDisabled,
@@ -85,6 +99,7 @@ function Provider({ children }) {
       formsInfo,
       setFormsInfo,
       login,
+      logOut,
       isLogged,
       failedTryLogin,
       isLoginDisabled,

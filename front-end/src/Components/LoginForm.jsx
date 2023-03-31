@@ -20,6 +20,7 @@ function LoginForm() {
       registerNameInput: '',
       registerEmailInput: '',
       registerPasswordInput: '',
+      role: '',
     });
   }, []);
 
@@ -28,7 +29,7 @@ function LoginForm() {
   if (isLogged) {
     const { role } = JSON.parse(localStorage.getItem('user'));
     switch (role) {
-    case 'administrator': return <Redirect to={ `/${role}/manage` } />;
+    case 'administrator': return <Redirect to="/admin/manage" />;
     case 'customer': return <Redirect to={ `/${role}/products` } />;
     case 'seller': return <Redirect to={ `/${role}/orders` } />;
     default: return <Redirect to="/" />;
