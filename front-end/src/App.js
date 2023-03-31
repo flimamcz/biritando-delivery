@@ -4,6 +4,7 @@ import './App.css';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Customer from './Pages/Customer';
+import Admin from './Pages/Admin';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Customer } />
+      <Route path="/admin/manage" component={ Admin } />
     </Switch>
   );
 }
