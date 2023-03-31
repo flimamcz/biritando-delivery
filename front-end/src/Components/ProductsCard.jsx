@@ -1,16 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  addProduct,
-  removeProduct,
-} from '../utils/shoppingCartLocalStorage';
 
 function ProductsCard(props) {
-  const { dataProduct: { id, name, price, urlImage } } = props;
+  const { dataProduct, methods } = props;
+  const { id, name, price, urlImage } = dataProduct;
   const formattedPrice = () => { if (price) return price.replace('.', ','); };
-
-  const increment = (product) => addProduct(product);
-  const decrement = (product) => removeProduct(product);
 
   return (
 
@@ -30,7 +24,7 @@ function ProductsCard(props) {
       <div>
         <button
           type="button"
-          onClick={ () => decrement({ id, name, price }) }
+          onClick={ () => methods.decreaseQuantity(id) }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
           -
@@ -42,7 +36,7 @@ function ProductsCard(props) {
         />
         <button
           type="button"
-          onClick={ () => increment({ id, name, price }) }
+          onClick={ () => methods.increaseQuantity(dataProduct) }
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           +
