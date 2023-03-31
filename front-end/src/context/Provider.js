@@ -133,7 +133,6 @@ function Provider({ children }) {
       verifyToken,
       register,
       failedTryRegister,
-      logout,
     }),
     [
       handleChange,
@@ -151,7 +150,6 @@ function Provider({ children }) {
       verifyToken,
       register,
       failedTryRegister,
-      logout,
     ],
   );
 
