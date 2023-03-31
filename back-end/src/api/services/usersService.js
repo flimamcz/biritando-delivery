@@ -9,7 +9,7 @@ const getUserByEmail = async (email) => {
   return user;
 };
 
-const register = async (name, email, password, role) => {
+const register = async (name, email, password, role = 'customer') => {
   const passHashed = md5(password);
 
   const isUser = await getUserByEmail(email);
@@ -20,7 +20,7 @@ const register = async (name, email, password, role) => {
     name, 
     email, 
     password: passHashed, 
-    role: role || 'customer',
+    role,
   });
 
   if (!newUser) return { status: 404, message: 'Error' };

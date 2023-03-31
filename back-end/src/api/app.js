@@ -3,6 +3,7 @@ const cors = require('cors');
 const loginRouter = require('./routes/loginRouter');
 const registerRouter = require('./routes/userRouter');
 const customerRouter = require('./routes/customerRouter');
+const adminRegisterRouter = require('./routes/adminManageRouter');
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(express.json());
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/customer', customerRouter);
+app.use('/admin/manage', adminRegisterRouter)
 
 module.exports = app; 
