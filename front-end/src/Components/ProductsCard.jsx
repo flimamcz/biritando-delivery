@@ -1,10 +1,29 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function ProductsCard(props) {
   const { dataProduct, methods } = props;
   const { id, name, price, urlImage } = dataProduct;
   const formattedPrice = () => { if (price) return price.replace('.', ','); };
+
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('cartItems'))) {
+      localStorage.setItem('cartItems', JSON.stringify([]));
+    }
+    const cartList = JSON.parse(localStorage.getItem('cartItems'));
+    const currentItem = cartList.find((item) => item.id === id);
+    if (currentItem) {
+      setQuantity(currentItem.quantity);
+    }
+  }, []);
+
+  const handleChange = ({ target }) => {
+    const auxValues = target.value;
+    setQuantity(Number(auxValues));
+    methods.setProductQuantity({ ...dataProduct, quantity: Number(auxValues) });
+  };
 
   return (
 
@@ -31,12 +50,13 @@ function ProductsCard(props) {
         </button>
         <input
           type="number"
-          value="0"
+          value={ quantity }
+          onChange={ handleChange }
           data-testid={ `customer_products__input-card-quantity-${id}` }
         />
         <button
           type="button"
-          onClick={ () => methods.increaseQuantity(dataProduct) }
+          onClick={ () => methods.increaseQuantity({ ...dataProduct, quantity }) }
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
           +

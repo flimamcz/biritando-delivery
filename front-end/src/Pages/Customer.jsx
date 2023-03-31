@@ -69,15 +69,13 @@ function Customer() {
   const increaseQuantity = (productData) => {
     let totalPrice = 0;
 
-    const productWithQuantity = { ...productData, quantity: 0 };
+    const productWithQuantity = { ...productData };
 
     const cartItemsCopy = cartItems;
-    console.log(cartItemsCopy);
     const item = cartItemsCopy.find((product) => product.id === productWithQuantity.id);
     if (!item) {
       addToCart(productWithQuantity);
     } else {
-      console.log({ item });
       item.quantity += 1;
       cartItems.forEach(({ price, quantity }) => {
         totalPrice += price * quantity;
@@ -95,6 +93,27 @@ function Customer() {
     const item = cartItemsCopy.find((product) => product.id === id);
     if (item.quantity > 1) {
       item.quantity -= 1;
+      cartItems.forEach(({ price, quantity }) => {
+        totalPrice += price * quantity;
+      });
+      setTotalPrice(totalPrice);
+    }
+    const newCartItems = cartItemsCopy;
+    setCartItems([...newCartItems]);
+    saveToLocalStorage();
+  };
+
+  const setProductQuantity = (productData) => {
+    let totalPrice = 0;
+
+    const productWithQuantity = productData;
+
+    const cartItemsCopy = cartItems;
+    const item = cartItemsCopy.find((product) => product.id === productWithQuantity.id);
+    if (!item) {
+      addToCart(productWithQuantity);
+    } else {
+      item.quantity = productWithQuantity.quantity;
       cartItems.forEach(({ price, quantity }) => {
         totalPrice += price * quantity;
       });
@@ -130,6 +149,7 @@ function Customer() {
     decreaseQuantity,
     removeProduct,
     addToCart,
+    setProductQuantity,
   };
 
   if (!isLogged) {
