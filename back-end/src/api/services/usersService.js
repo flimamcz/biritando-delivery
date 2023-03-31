@@ -25,7 +25,7 @@ const register = async (name, email, password, role = 'customer') => {
 
   if (!newUser) return { status: 404, message: 'Error' };
 
-  const token = jwt.sign({ data: { name, email } }, auth.secret, { expiresIn: auth.expires });
+  const token = jwt.sign({ name, email, role }, auth.secret, { expiresIn: auth.expires });
 
   const result = { newUser, token };
 
