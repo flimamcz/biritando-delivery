@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Navbar from '../Components/NavBar';
 import MyContext from '../context/MyContext';
 import ProductsCard from '../Components/ProductsCard';
+import { navBarCustomer } from '../utils/navBarinfo';
 
 function Customer() {
   const { isLogged, getProducts, productsData, verifyToken } = useContext(MyContext);
@@ -26,7 +27,7 @@ function Customer() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar type={ navBarCustomer } />
       <div>
         {productsData.map((product) => (
           <ProductsCard dataProduct={ product } key={ Math.random() } />

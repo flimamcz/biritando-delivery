@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
-function Navbar() {
+function Navbar({ type }) {
   const [username, setUsername] = useState('');
   const { logOut } = useContext(MyContext);
 
@@ -19,22 +19,13 @@ function Navbar() {
   return (
     <nav>
       <ul>
-        <li>
-          <Link
-            to="/customer/products"
-            data-testid="customer_products__element-navbar-link-products"
-          >
-            PRODUTOS
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/customer/orders"
-            data-testid="customer_products__element-navbar-link-orders"
-          >
-            PEDIDOS
-          </Link>
-        </li>
+        {type.map(({ name, link, testId }, i) => (
+          <li key={ i }>
+            <Link to={ link } data-testid={ testId }>
+              {name}
+            </Link>
+          </li>
+        ))}
       </ul>
 
       <h3 data-testid="customer_products__element-navbar-user-full-name">{username}</h3>
