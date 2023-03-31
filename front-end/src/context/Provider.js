@@ -9,6 +9,7 @@ function Provider({ children }) {
   const [isLoginDisabled, toggleLoginButton] = useState(true);
   const [isRegisterDisabled, toggleRegisterButton] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
   const [formsInfo, setFormsInfo] = useState({
     loginEmailInput: '',
     loginPasswordInput: '',
@@ -65,8 +66,25 @@ function Provider({ children }) {
       setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
+  }, []);
+
+  const register = useCallback(
+    async (event, info) => {
+      event.preventDefault();
+      try {
+        await requestLogin('/register', info);
+        login(event, info);
+      } catch (error) {
+        setFailedTryRegister(true);
+      }
+    },
+    [login],
+  );
+
+  const logout = useCallback(() => {
+    setIsLogged(false);
+    localStorage.clear();
   }, []);
 
   useEffect(() => {
@@ -77,14 +95,14 @@ function Provider({ children }) {
     validateRegisterInputs();
   }, [validateRegisterInputs]);
 
-  useEffect(() => {
+  const verifyToken = useCallback(() => {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       if (token) {
         setIsLogged(true);
       }
     } catch (error) {
-      console.log(error.message);
+      setIsLogged(false);
     }
   }, []);
 
@@ -103,6 +121,10 @@ function Provider({ children }) {
       productsData,
       getProducts,
       setIsLogged,
+      verifyToken,
+      register,
+      failedTryRegister,
+      logout,
     }),
     [
       handleChange,
@@ -116,6 +138,10 @@ function Provider({ children }) {
       productsData,
       getProducts,
       setIsLogged,
+      verifyToken,
+      register,
+      failedTryRegister,
+      logout,
     ],
   );
 

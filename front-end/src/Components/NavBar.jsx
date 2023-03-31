@@ -1,30 +1,48 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import MyContext from '../context/MyContext';
 
-function Navbar(props) {
-  const { navbarsLinksName } = props;
-  const { name } = JSON.parse(localStorage.getItem('user'));
+function Navbar() {
+  const [username, setUsername] = useState('');
+  const { logout } = useContext(MyContext);
+
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('user'))) {
+      localStorage.setItem('user', JSON.stringify({ name: 'usuário' }));
+    }
+    const { name } = JSON.parse(localStorage.getItem('user'));
+    setUsername(name);
+  }, []);
+
   return (
     <nav>
-      {
-        navbarsLinksName.map(({ linkName, linkUrl, dataTestid }, index) => (
+      <ul>
+        <li>
           <Link
-            to={ `/${linkUrl}` }
-            key={ index }
-            data-testid={ `customer_products__element-navbar-link-${dataTestid}` }
+            to="/customer/products"
+            data-testid="customer_products__element-navbar-link-products"
           >
-            {linkName}
+            PRODUTOS
           </Link>
-        ))
-      }
+        </li>
+        <li>
+          <Link
+            to="/customer/orders"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            PEDIDOS
+          </Link>
+        </li>
+      </ul>
 
-      <h3 data-testid="customer_products__element-navbar-user-full-name">{name}</h3>
+      <h3 data-testid="customer_products__element-navbar-user-full-name">{username}</h3>
 
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
+        onClick={ logout }
       >
         Sair
       </button>
@@ -33,7 +51,13 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
-  navbarsLinksName: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
+  navbarsLinksName: PropTypes.shape({
+    products: PropTypes.shape({
+      linkName: PropTypes.string,
+      linkUrl: PropTypes.string,
+      dataTestId: PropTypes.string,
+    }),
+  }),
+}.isRequired;
 
 export default Navbar;

@@ -2,15 +2,23 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Navbar from '../Components/NavBar';
 import MyContext from '../context/MyContext';
-import navbarsLinksNameProducts from '../utils/navbarsLinksName';
 import ProductsCard from '../Components/ProductsCard';
 
-function Login() {
-  const { isLogged, getProducts, productsData } = useContext(MyContext);
+function Customer() {
+  const { isLogged, getProducts, productsData, verifyToken } = useContext(MyContext);
 
   useEffect(() => {
     getProducts();
-  }, []);
+    verifyToken();
+    if (!JSON.parse(localStorage.getItem('shoppingCart'))) {
+      localStorage.setItem('shoppingCart', JSON.stringify([{
+        id: '',
+        name: '',
+        price: '',
+        quantity: '',
+      }]));
+    }
+  }, [getProducts, verifyToken]);
 
   if (!isLogged) {
     return <Redirect to="/login" />;
@@ -18,7 +26,7 @@ function Login() {
 
   return (
     <div>
-      <Navbar navbarsLinksName={ navbarsLinksNameProducts } />
+      <Navbar />
       <div>
         {productsData.map((product) => (
           <ProductsCard dataProduct={ product } key={ Math.random() } />
@@ -28,4 +36,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Customer;

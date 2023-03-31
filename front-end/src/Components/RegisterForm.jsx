@@ -1,32 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
-import { requestLogin } from '../services/request';
 
 export default function RegisterForm() {
   const {
     handleChange, formsInfo,
     isRegisterDisabled, setFormsInfo,
+    register, failedTryRegister, isLogged,
   } = useContext(MyContext);
-
-  const [failedRequest, setFailedRequest] = useState(false);
-
-  const history = useHistory();
 
   const dataUser = {
     name: formsInfo.registerNameInput,
     email: formsInfo.registerEmailInput,
     password: formsInfo.registerPasswordInput,
-  };
-
-  const sendRegisterRequest = async (event) => {
-    event.preventDefault();
-    try {
-      await requestLogin('register', dataUser);
-      history.push('/customer/products');
-    } catch (error) {
-      setFailedRequest(true);
-    }
   };
 
   useEffect(() => {
@@ -37,10 +23,15 @@ export default function RegisterForm() {
       registerEmailInput: '',
       registerPasswordInput: '',
     });
-  }, []);
+  }, [setFormsInfo]);
+
+  if (isLogged) {
+    return <Redirect to="/customer/products" />;
+  }
 
   return (
     <form>
+      <span>{`${isLogged}`}</span>
       <label htmlFor="name">
         nome
         <input
@@ -78,12 +69,12 @@ export default function RegisterForm() {
         type="submit"
         disabled={ isRegisterDisabled }
         data-testid="common_register__button-register"
-        onClick={ sendRegisterRequest }
+        onClick={ (event) => register(event, dataUser) }
       >
         CADASTRAR
       </button>
 
-      {failedRequest && (
+      {failedTryRegister && (
         <span data-testid="common_register__element-invalid_register">
           Erro ao realizar cadastro!
         </span>

@@ -8,7 +8,7 @@ function LoginForm() {
     handleChange, login,
     formsInfo, failedTryLogin,
     isLogged, isLoginDisabled,
-    setFormsInfo,
+    setFormsInfo, verifyToken,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -21,14 +21,15 @@ function LoginForm() {
       registerEmailInput: '',
       registerPasswordInput: '',
     });
-  }, []);
+    verifyToken();
+  }, [setFormsInfo, isLogged, verifyToken]);
 
   const { loginEmailInput, loginPasswordInput } = formsInfo;
 
   if (isLogged) {
     const { role } = JSON.parse(localStorage.getItem('user'));
     switch (role) {
-    case 'administrator': return <Redirect to={ `/${role}/manage` } />;
+    case 'administrator': return <Redirect to="/administrator/manage" />;
     case 'customer': return <Redirect to={ `/${role}/products` } />;
     case 'seller': return <Redirect to={ `/${role}/orders` } />;
     default: return <Redirect to="/" />;
@@ -37,6 +38,7 @@ function LoginForm() {
 
   return (
     <form>
+      <span>{`${isLogged}`}</span>
       <label htmlFor="email-input">
         Login
         <input
@@ -88,6 +90,7 @@ function LoginForm() {
       >
         Ainda não tenho conta
       </button>
+      <span>$#zebirita#$</span>
     </form>
   );
 }
