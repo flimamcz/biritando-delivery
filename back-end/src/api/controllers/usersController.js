@@ -16,10 +16,10 @@ const adminRegister = async (req, res) => {
   const { name, email, password, role } = req.body;
   const newRegister = await userService.register(name, email, password, role);
   if (newRegister.status) {
-    return res.status(newRegister.status).json({ message: newRegister.messsage });
+    return res.status(newRegister.status).json({ message: newRegister.message });
   }
 
   return res.status(201).json(newRegister);
-}
+};
 
 module.exports = { register, adminRegister };
