@@ -11,7 +11,6 @@ const getUserByEmail = async (email) => {
 
 const register = async (name, email, password, role = 'customer') => {
   const passHashed = md5(password);
-
   const isUser = await getUserByEmail(email);
 
   if (isUser) return { status: 409, message: 'User already exists' };
@@ -26,7 +25,6 @@ const register = async (name, email, password, role = 'customer') => {
   if (!newUser) return { status: 404, message: 'Error' };
 
   const token = jwt.sign({ name, email, role }, auth.secret, { expiresIn: auth.expires });
-
   const result = { newUser, token };
 
   return result;

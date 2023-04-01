@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { requestGet, requestLogin, setToken } from '../services/request';
+import { requestGet, requestPost, setToken } from '../services/request';
 import MyContext from './MyContext';
 
 function Provider({ children }) {
@@ -60,7 +60,7 @@ function Provider({ children }) {
   const login = useCallback(async (event, info) => {
     event.preventDefault();
     try {
-      const user = await requestLogin('/login', info);
+      const user = await requestPost('/login', info);
       localStorage.setItem('user', JSON.stringify(user));
 
       setToken(user.token);
@@ -74,7 +74,7 @@ function Provider({ children }) {
     async (event, info) => {
       event.preventDefault();
       try {
-        await requestLogin('/register', info);
+        await requestPost('/register', info);
         login(event, info);
       } catch (error) {
         setFailedTryRegister(true);

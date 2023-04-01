@@ -1,10 +1,10 @@
 const express = require('express');
 
-const registerController = require('../controllers/usersController');
+const usersController = require('../controllers/usersController');
 const tokenValidation = require('../middlewares/authMiddleware');
 
 const adminRouter = express.Router();
 
-adminRouter.post('/manage', tokenValidation, registerController.register);
+adminRouter.post('/manage', tokenValidation, usersController.register);
 
 module.exports = adminRouter;

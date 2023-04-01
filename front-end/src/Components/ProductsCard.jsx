@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 function ProductsCard(props) {
   const { dataProduct, methods } = props;
   const { id, name, price, urlImage } = dataProduct;
-  const formattedPrice = () => { if (price) return price.replace('.', ','); };
+  const formattedPrice = () => { if (price) return `R$ ${price.replace('.', ',')}`; };
 
   const [quantity, setQuantity] = useState(0);
 
@@ -21,8 +21,8 @@ function ProductsCard(props) {
 
   const handleChange = ({ target }) => {
     const auxValues = target.value;
-    setQuantity(Number(auxValues));
-    methods.setProductQuantity({ ...dataProduct, quantity: Number(auxValues) });
+    setQuantity(auxValues);
+    methods.setProductQuantity({ ...dataProduct, quantity: auxValues });
   };
 
   return (
@@ -49,8 +49,7 @@ function ProductsCard(props) {
           -
         </button>
         <input
-          type="number"
-          value={ quantity }
+          value={ Number(quantity) }
           onChange={ handleChange }
           data-testid={ `customer_products__input-card-quantity-${id}` }
         />

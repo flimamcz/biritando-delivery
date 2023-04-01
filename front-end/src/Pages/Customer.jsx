@@ -19,19 +19,24 @@ function Customer() {
     if (localCartItems) {
       setCartItems(localCartItems);
     }
-
     if (!localCartItems) {
       toggleEmptyCart(true);
     }
-
-    if (localCartItems) {
-      let totalPrice = 0;
-      localCartItems.forEach(({ price, quantity }) => {
-        totalPrice += price * quantity;
-      });
-      setTotalPrice(totalPrice);
-    }
   }, [getProducts, verifyToken]);
+
+  const roundPrice = (value) => {
+    const totalPrice = Math.round((value) * 100) / 100;
+    return totalPrice;
+  };
+
+  useEffect(() => {
+    let soma = 0;
+    const totalPricePerItem = cartItems.map((item) => item.quantity * item.price);
+    totalPricePerItem.forEach((element) => {
+      soma += element;
+    });
+    if (totalPricePerItem.length)setTotalPrice(roundPrice(soma));
+  }, [cartItems]);
 
   const saveToLocalStorage = () => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -91,7 +96,7 @@ function Customer() {
     const cartItemsCopy = cartItems;
     let totalPrice = 0;
     const item = cartItemsCopy.find((product) => product.id === id);
-    if (item.quantity > 1) {
+    if (item.quantity > 0) {
       item.quantity -= 1;
       cartItems.forEach(({ price, quantity }) => {
         totalPrice += price * quantity;
@@ -105,22 +110,17 @@ function Customer() {
 
   const setProductQuantity = (productData) => {
     let totalPrice = 0;
-
-    const productWithQuantity = productData;
-
-    const cartItemsCopy = cartItems;
-    const item = cartItemsCopy.find((product) => product.id === productWithQuantity.id);
+    const item = cartItems.find((product) => product.id === productData.id);
     if (!item) {
-      addToCart(productWithQuantity);
+      addToCart(productData);
     } else {
-      item.quantity = productWithQuantity.quantity;
+      item.quantity = productData.quantity;
       cartItems.forEach(({ price, quantity }) => {
         totalPrice += price * quantity;
       });
       setTotalPrice(totalPrice);
     }
-    const newCartItems = cartItemsCopy;
-    setCartItems([...newCartItems]);
+    setCartItems(cartItems);
     saveToLocalStorage();
   };
 
@@ -167,7 +167,7 @@ function Customer() {
             key={ Math.random() }
           />
         ))}
-        {emptyCart ? (<p>Seu Carrinho Está Vazio</p>) : (<p>{ priceTotal }</p>)}
+        {emptyCart ? (<p>Seu Carrinho Está Vazio</p>) : (<p>{ `R$ ${priceTotal}` }</p>)}
       </div>
     </div>
   );

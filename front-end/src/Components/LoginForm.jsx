@@ -91,7 +91,8 @@ function LoginForm() {
       >
         Ainda não tenho conta
       </button>
-      <span>$#zebirita#$</span>
+      <span>adm@deliveryapp.com</span>
+      <span>--adm2@21!!--</span>
     </form>
   );
 }
