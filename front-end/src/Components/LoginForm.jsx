@@ -39,7 +39,6 @@ function LoginForm() {
 
   return (
     <form>
-      <span>{`${isLogged}`}</span>
       <label htmlFor="email-input">
         Login
         <input
@@ -91,8 +90,6 @@ function LoginForm() {
       >
         Ainda não tenho conta
       </button>
-      <span>adm@deliveryapp.com</span>
-      <span>--adm2@21!!--</span>
     </form>
   );
 }

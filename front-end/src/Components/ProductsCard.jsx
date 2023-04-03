@@ -49,6 +49,7 @@ function ProductsCard(props) {
           -
         </button>
         <input
+          type="number"
           value={ Number(quantity) }
           onChange={ handleChange }
           data-testid={ `customer_products__input-card-quantity-${id}` }
