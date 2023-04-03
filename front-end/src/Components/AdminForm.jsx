@@ -41,6 +41,14 @@ export default function AdminForm() {
       setFailedRequest(false);
       setSucessRequest(true);
     } catch (error) {
+      setFormsInfo({
+        loginEmailInput: '',
+        loginPasswordInput: '',
+        registerNameInput: '',
+        registerEmailInput: '',
+        registerPasswordInput: '',
+        registerRoleInput: 'customer',
+      });
       setSucessRequest(false);
       setFailedRequest(true);
     }

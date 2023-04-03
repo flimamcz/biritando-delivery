@@ -1,5 +1,7 @@
+const secret = require('fs').readFileSync('jwt.evaluation.key');
+
 const auth = {
-  secret: String(process.env.SECRET) || 'secret_key',
+  secret,
   expires: '1h',
 };
 
