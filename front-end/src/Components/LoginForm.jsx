@@ -8,7 +8,7 @@ function LoginForm() {
     handleChange, login,
     formsInfo, failedTryLogin,
     isLogged, isLoginDisabled,
-    setFormsInfo,
+    setFormsInfo, verifyToken,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -22,7 +22,8 @@ function LoginForm() {
       registerPasswordInput: '',
       role: '',
     });
-  }, []);
+    verifyToken();
+  }, [setFormsInfo, isLogged, verifyToken]);
 
   const { loginEmailInput, loginPasswordInput } = formsInfo;
 
@@ -38,6 +39,7 @@ function LoginForm() {
 
   return (
     <form>
+      <span>{`${isLogged}`}</span>
       <label htmlFor="email-input">
         Login
         <input
@@ -89,6 +91,8 @@ function LoginForm() {
       >
         Ainda não tenho conta
       </button>
+      <span>adm@deliveryapp.com</span>
+      <span>--adm2@21!!--</span>
     </form>
   );
 }

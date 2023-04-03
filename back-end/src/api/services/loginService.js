@@ -11,7 +11,9 @@ const newLogin = async (email, password) => {
     return { type: 'INVALID_FIELDS', message: 'Invalid fields' }; 
   }
 
-  const token = jwt.sign({ data: { userId: user.id } }, auth.secret, { expiresIn: auth.expires });
+  const token = jwt.sign({
+   name: user.name, email, role: user.role,
+  }, auth.secret, { expiresIn: auth.expires });
 
   const result = {
     name: user.name,
