@@ -138,7 +138,7 @@ export default function AdminForm() {
         </button>
         <br />
         {failedRequest && (
-          <span data-testid="common_register__element-invalid_register">
+          <span data-testid="admin_manage__element-invalid_register">
             Erro ao realizar cadastro!
           </span>
         )}
