@@ -21,7 +21,10 @@ function Navbar({ type }) {
       <ul>
         {type.map(({ name, link, testId }, i) => (
           <li key={ i }>
-            <Link to={ link } data-testid={ testId }>
+            <Link
+              to={ link }
+              data-testid={ `customer_products__element-navbar-link-${testId}` }
+            >
               {name}
             </Link>
           </li>

@@ -22,7 +22,7 @@ function ProductsCard(props) {
   const handleChange = ({ target }) => {
     const auxValues = target.value;
     setQuantity(auxValues);
-    methods.setProductQuantity({ ...dataProduct, quantity: auxValues });
+    methods.setProductQuantity({ ...dataProduct, quantity: Number(auxValues) });
   };
 
   return (

@@ -81,6 +81,7 @@ function Customer() {
     if (!item) {
       addToCart(productWithQuantity);
     } else {
+      console.log(item.quantity);
       item.quantity += 1;
       cartItems.forEach(({ price, quantity }) => {
         totalPrice += price * quantity;
