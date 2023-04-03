@@ -1,19 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { requestLogin } from '../services/request';
+import NavBar from './NavBar';
 
 export default function AdminForm() {
   const {
     handleChange, formsInfo,
     isRegisterDisabled, setFormsInfo,
-    logOut,
   } = useContext(MyContext);
 
   const [failedRequest, setFailedRequest] = useState(false);
 
   const history = useHistory();
-  const user = localStorage.getItem('user');
 
   const dataUser = {
     name: formsInfo.registerNameInput,
@@ -45,21 +44,7 @@ export default function AdminForm() {
 
   return (
     <>
-      <div>
-        <li data-testid="customer_products__element-navbar-link-orders">
-          <Link to="/seller/orders">GERENCIAR USUÁRIOS</Link>
-        </li>
-        <li data-testid="customer_products__element-navbar-user-full-name">
-          {user.name}
-        </li>
-        <button
-          type="button"
-          onClick={ logOut }
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          Sair
-        </button>
-      </div>
+      <NavBar />
       <form>
         <label htmlFor="name">
           Nome

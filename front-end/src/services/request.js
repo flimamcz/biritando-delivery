@@ -13,4 +13,9 @@ export const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };
 
+export const requestOrders = async (endpoint) => {
+  const { data } = await api.get(endpoint);
+  return data;
+};
+
 export default api;

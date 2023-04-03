@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { requestLogin, setToken } from '../services/request';
+import { requestLogin, requestOrders, setToken } from '../services/request';
 import MyContext from './MyContext';
 
 function Provider({ children }) {
@@ -72,6 +72,13 @@ function Provider({ children }) {
     }
   }, []);
 
+  const getOrders = useCallback(async (event) => {
+    event.preventDefault();
+    const orders = await requestOrders('/seller/orders');
+    return orders;
+    // localStorage.setItem('orders', JSON.stringify(orders));
+  }, []);
+
   useEffect(() => {
     validateLoginInputs();
   }, [validateLoginInputs]);
@@ -93,6 +100,7 @@ function Provider({ children }) {
       isRegisterDisabled,
       toggleLoginButton,
       toggleRegisterButton,
+      getOrders,
     }),
     [
       handleChange,
@@ -104,6 +112,7 @@ function Provider({ children }) {
       failedTryLogin,
       isLoginDisabled,
       isRegisterDisabled,
+      getOrders,
     ],
   );
 
