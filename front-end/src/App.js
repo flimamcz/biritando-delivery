@@ -4,7 +4,8 @@ import './App.css';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Admin from './Pages/Admin';
-import Seller from './Pages/Seller';
+import Seller from './Pages/SellerOrder';
+import Order from './Pages/CustomerOrder';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/register" component={ Register } />
       <Route path="/admin/manage" component={ Admin } />
       <Route path="/seller/orders" component={ Seller } />
+      <Route path="/customer/orders" component={ Order } />
     </Switch>
   );
 }
