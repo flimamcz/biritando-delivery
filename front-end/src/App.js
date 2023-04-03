@@ -5,6 +5,7 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Customer from './Pages/Customer';
 import Admin from './Pages/Admin';
+import Checkout from './Pages/Checkout';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Customer } />
       <Route path="/admin/manage" component={ Admin } />
+      <Route path="/customer/checkout" component={ Checkout } />
     </Switch>
   );
 }
