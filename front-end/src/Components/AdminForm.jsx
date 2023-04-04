@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { requestPost } from '../services/request';
+import NavBar from './NavBar';
 
 export default function AdminForm() {
   const {
@@ -77,6 +78,7 @@ export default function AdminForm() {
   return (
     <>
       <h2>Cadastrar novo usuário</h2>
+      <NavBar />
       <form>
         <label htmlFor="name">
           Nome
@@ -138,13 +140,15 @@ export default function AdminForm() {
         </button>
         <br />
         {failedRequest && (
-          <span data-testid="admin_manage__element-invalid_register">
+          <span data-testid="admin_manage__element-invalid-register">
             Erro ao realizar cadastro!
           </span>
         )}
         {
           sucessRequest && (
-            <span>Usuário cadastro com sucesso!</span>
+            <span data-testid="admin_manage__element-valid-register">
+              Usuário cadastro com sucesso!
+            </span>
           )
         }
       </form>
