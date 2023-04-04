@@ -9,9 +9,15 @@ const getUserByEmail = async (email) => {
   return user;
 };
 
+const getUserByName = async (name) => {
+  const user = await User.findOne({ where: { name } });
+
+  return user;
+};
+
 const register = async (name, email, password, role = 'customer') => {
   const passHashed = md5(password);
-  const isUser = await getUserByEmail(email);
+  const isUser = await getUserByEmail(email) || await getUserByName(name);
 
   if (isUser) return { status: 409, message: 'User already exists' };
 
