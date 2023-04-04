@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types'
 import React, { useContext, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';

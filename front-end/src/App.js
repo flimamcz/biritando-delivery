@@ -5,9 +5,10 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Customer from './Pages/Customer';
 import Admin from './Pages/Admin';
+import CustomerOrdersDetails from './Pages/CustomerOrdersDetails';
+import SellerOrdersDetails from './Pages/SellerOrdersDetails';
 import Checkout from './Pages/Checkout';
 import Order from './Pages/Order';
-import OrderDetail from './Pages/OrderDetail';
 
 function App() {
   return (
@@ -17,13 +18,13 @@ function App() {
       </Route>
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
-      <Route path="/customer/products" component={ Customer } />
       <Route path="/admin/manage" component={ Admin } />
+      <Route path="/customer/products" component={ Customer } />
       <Route path="/customer/checkout" component={ Checkout } />
       <Route exact path="/customer/orders" component={ Order } />
-      <Route exact path="/customer/orders/:id" component={ OrderDetail } />
+      <Route path="/customer/orders/:id" component={ CustomerOrdersDetails } />
       <Route exact path="/seller/orders" component={ Order } />
-      <Route exact path="/seller/orders/:id" component={ OrderDetail } />
+      <Route path="/seller/orders/:id" component={ SellerOrdersDetails } />
     </Switch>
   );
 }

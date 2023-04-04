@@ -8,7 +8,7 @@ function Order() {
   const { role } = JSON.parse(localStorage.getItem('user'));
   const typeNav = role === 'seller' ? navBarSeller : navBarCustomer[1];
   const { getOrders } = useContext(MyContext);
-  const orderList = getOrders();
+  const orderList = getOrders(role);
   const orders = orderList.map((item, index) => {
     const { id, status, saleDate, totalPrice, deliveryAddress } = item;
     return (
