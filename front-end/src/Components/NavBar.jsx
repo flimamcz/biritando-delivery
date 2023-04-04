@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
-function Navbar({ type }) {
+function NavBar({ type }) {
   const [username, setUsername] = useState('');
   const { logOut } = useContext(MyContext);
 
@@ -44,7 +44,7 @@ function Navbar({ type }) {
   );
 }
 
-Navbar.propTypes = {
+NavBar.propTypes = {
   navbarsLinksName: PropTypes.shape({
     products: PropTypes.shape({
       linkName: PropTypes.string,
@@ -82,4 +82,4 @@ Navbar.propTypes = {
 //   );
 // }
 
-// export default NavBar;
+export default NavBar;
