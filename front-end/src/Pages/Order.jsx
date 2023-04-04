@@ -4,6 +4,7 @@ import NavBar from '../Components/NavBar';
 import OrderCard from '../Components/OrderCard';
 
 function Order() {
+  const { role } = JSON.parse(localStorage.getItem('user'));
   const { getOrders } = useContext(MyContext);
   const orderList = getOrders();
   const orders = orderList.map((item, index) => {
@@ -11,7 +12,7 @@ function Order() {
     return (
       <OrderCard
         key={ index }
-        prop="customer"
+        prop={ role }
         id={ id }
         status={ status }
         saleDate={ saleDate }

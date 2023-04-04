@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
   return (
     <li key={ index }>
-      <Link to={ `/customer/orders/${id}` }>
+      <Link to={ `/${prop}/orders/${id}` }>
         <p data-testid={ `${prop}_orders__element_order-id-${id}` }>{id}</p>
         <p data-testid={ `${prop}_orders__element-delivery-status-${id}` }>{status}</p>
         <p data-testid={ `${prop}_order__element-order-date-${id}` }>{saleDate}</p>

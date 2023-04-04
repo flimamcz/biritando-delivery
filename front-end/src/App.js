@@ -6,8 +6,7 @@ import Register from './Pages/Register';
 import Customer from './Pages/Customer';
 import Admin from './Pages/Admin';
 import Checkout from './Pages/Checkout';
-import Seller from './Pages/SellerOrder';
-import Order from './Pages/CustomerOrder';
+import Order from './Pages/Order';
 import OrderDetail from './Pages/OrderDetail';
 
 function App() {
@@ -21,9 +20,10 @@ function App() {
       <Route path="/customer/products" component={ Customer } />
       <Route path="/admin/manage" component={ Admin } />
       <Route path="/customer/checkout" component={ Checkout } />
-      <Route path="/seller/orders" component={ Seller } />
-      <Route path="/customer/orders" component={ Order } />
-      <Route path="/customer/orders/:id" component={ OrderDetail } />
+      <Route exact path="/customer/orders" component={ Order } />
+      <Route exact path="/customer/orders/:id" component={ OrderDetail } />
+      <Route exact path="/seller/orders" component={ Order } />
+      <Route exact path="/seller/orders/:id" component={ OrderDetail } />
     </Switch>
   );
 }
