@@ -25,7 +25,7 @@ function Checkout() {
 
   useEffect(() => {
     setSaleInfo({
-      sellerId: 0,
+      sellerId: 2,
       totalPrice,
       deliveryAddress: '',
       deliveryNumber: '',
@@ -65,12 +65,9 @@ function Checkout() {
 
   useEffect(() => {
     getSellers();
-  }, [getSellers]);
-
-  useEffect(() => {
     setCartItems(localCartItems);
     setTotalPrice(totalPrice);
-  }, [totalPrice]);
+  }, [totalPrice, getSellers]);
 
   return (
     <>
