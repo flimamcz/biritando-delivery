@@ -144,7 +144,7 @@ export default function AdminForm() {
         )}
         {
           sucessRequest && (
-            <span data-testid="common_register__element-invalid_register">
+            <span data-testid="admin_manage__element-invalid-register">
               Usuário cadastro com sucesso!
             </span>
           )
