@@ -1,77 +1,120 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
+import { getCartItems, setCartItems } from '../utils/cartLocalStorage';
 
-function ProductsCard(props) {
-  const { dataProduct, methods } = props;
-  const { id, name, price, urlImage } = dataProduct;
-  const formattedPrice = () => { if (price) return `R$ ${price.replace('.', ',')}`; };
-
-  const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    if (!JSON.parse(localStorage.getItem('cartItems'))) {
-      localStorage.setItem('cartItems', JSON.stringify([]));
-    }
-    const cartList = JSON.parse(localStorage.getItem('cartItems'));
-    const currentItem = cartList.find((item) => item.id === id);
-    if (currentItem) {
-      setQuantity(currentItem.quantity);
-    }
-  }, []);
-
-  const handleChange = ({ target }) => {
-    const auxValues = target.value;
-    setQuantity(auxValues);
-    methods.setProductQuantity({ ...dataProduct, quantity: Number(auxValues) });
+export default class ProductsCard extends Component {
+  state = {
+    quantity: 0,
   };
 
-  return (
+  componentDidMount() {
+    const { id } = this.props;
+    const cartItems = getCartItems();
+    const product = cartItems.find((p) => p.id === id);
+    if (product) this.setState({ quantity: product.quantity });
+    this.updateTotalPrice();
+  }
 
-    <div key={ id } className="card">
-      <span
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        {formattedPrice()}
-      </span>
-      <img
-        src={ `${urlImage}` }
-        alt={ `the product is ${name}` }
-        width="128px"
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-      />
-      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
-      <div>
-        <button
-          type="button"
-          onClick={ () => methods.decreaseQuantity(id) }
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-        >
-          -
-        </button>
-        <input
-          type="number"
-          value={ Number(quantity) }
-          onChange={ handleChange }
-          data-testid={ `customer_products__input-card-quantity-${id}` }
+  updateCartItems = () => {
+    const { price, urlImage, name, id } = this.props;
+    const { quantity } = this.state;
+
+    const newProduct = {
+      price,
+      urlImage,
+      name,
+      id,
+      quantity };
+
+    const cartItems = getCartItems();
+    const newProductIndex = cartItems.findIndex((p) => p.id === id);
+
+    if (quantity < 1) {
+      cartItems.splice(newProductIndex, 1);
+    } else if (newProductIndex < 0) {
+      cartItems.push(newProduct);
+    } else {
+      cartItems[newProductIndex] = newProduct;
+    }
+
+    setCartItems(cartItems);
+    this.updateTotalPrice();
+  };
+
+  updateTotalPrice = () => {
+    const { setTotalPrice } = this.props;
+    const cartItems = getCartItems();
+    const sum = cartItems
+      .map((product) => product.price * product.quantity)
+      .reduce((a, b) => a + b, 0);
+
+    setTotalPrice(sum.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+  };
+
+  handleClick = (qty, { target: { name } }) => {
+    switch (name) {
+    case 'increase': this.setState({ quantity: qty + 1 }, () => this.updateCartItems());
+      break;
+    case 'decrease': if (qty > 0) {
+      this.setState({ quantity: qty - 1 }, () => this.updateCartItems());
+    } break;
+    default: this.updateCartItems();
+    }
+  };
+
+  handleChange = ({ target: { value } }) => {
+    this.setState({ quantity: Number(value) }, () => this.updateCartItems());
+  };
+
+  render() {
+    const { quantity } = this.state;
+    const { id, price, urlImage, name } = this.props;
+    return (
+      <li>
+        <img
+          width="100px"
+          src={ urlImage }
+          alt={ `${name}-img` }
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
         />
-        <button
-          type="button"
-          onClick={ () => methods.increaseQuantity({ ...dataProduct, quantity }) }
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-        >
-          +
-        </button>
-      </div>
-    </div>
-
-  );
+        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
+        <p data-testid={ `customer_products__element-card-price-${id}` }>
+          {Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+        </p>
+        <div>
+          <button
+            type="button"
+            name="decrease"
+            onClick={ (event) => this.handleClick(quantity, event) }
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+          >
+            -
+          </button>
+          <input
+            type="number"
+            name="quantityInput"
+            value={ quantity }
+            onChange={ this.handleChange }
+            min="0"
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+          />
+          <button
+            type="button"
+            name="increase"
+            onClick={ (event) => this.handleClick(quantity, event) }
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+          >
+            +
+          </button>
+        </div>
+      </li>
+    );
+  }
 }
 
 ProductsCard.propTypes = {
-  id: PropTypes.number,
-  name: PropTypes.string,
-  price: PropTypes.string,
   urlImage: PropTypes.string,
+  price: PropTypes.string,
+  name: PropTypes.string,
+  id: PropTypes.string,
 }.isRequired;
-
-export default ProductsCard;
