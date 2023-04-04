@@ -65,15 +65,20 @@ function Checkout() {
                       `customer_checkout__element-order-table-unit-price-${index}`
                     }
                   >
-                    {item.price}
+                    {Number(item.price)
+                      .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
 
                   </td>
-                  <td>{(item.price * item.quantity).toFixed(2)}</td>
                   <td
                     data-testid={
                       `customer_checkout__element-order-table-sub-total-${index}`
                     }
                   >
+                    {Number((item.price * item.quantity)
+                      .toFixed(2)).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                  </td>
+
+                  <td>
                     <button
                       type="button"
                       data-testid={
@@ -87,6 +92,7 @@ function Checkout() {
                     >
                       Remover
                     </button>
+
                   </td>
                 </tr>
 
@@ -95,9 +101,7 @@ function Checkout() {
             <p
               data-testid="customer_checkout__element-order-total-price"
             >
-              Preço total R$:
-              {' '}
-              {priceTotal.toFixed(2)}
+              {Number(priceTotal).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </p>
           </table>
         ) : 'Seu carrinho esta vazio'}
