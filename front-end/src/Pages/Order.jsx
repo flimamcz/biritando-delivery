@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 import NavBar from '../Components/NavBar';
 import OrderCard from '../Components/OrderCard';
+import { navBarCustomer, navBarSeller } from '../utils/navBarinfo';
 
 function Order() {
   const { role } = JSON.parse(localStorage.getItem('user'));
+  const typeNav = role === 'seller' ? navBarSeller : navBarCustomer[1];
   const { getOrders } = useContext(MyContext);
   const orderList = getOrders();
   const orders = orderList.map((item, index) => {
@@ -23,7 +25,7 @@ function Order() {
   });
   return (
     <div>
-      <NavBar />
+      <NavBar type={ typeNav } />
       <ul>{orders}</ul>
     </div>
   );
