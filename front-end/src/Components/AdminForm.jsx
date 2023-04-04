@@ -138,13 +138,13 @@ export default function AdminForm() {
         </button>
         <br />
         {failedRequest && (
-          <span data-testid="admin_manage__element-invalid_register">
+          <span data-testid="admin_manage__element-invalid-register">
             Erro ao realizar cadastro!
           </span>
         )}
         {
           sucessRequest && (
-            <span data-testid="admin_manage__element-invalid-register">
+            <span data-testid="admin_manage__element-valid-register">
               Usuário cadastro com sucesso!
             </span>
           )
