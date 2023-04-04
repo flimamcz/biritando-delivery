@@ -105,11 +105,9 @@ function Provider({ children }) {
 
   useEffect(() => {
     validateLoginInputs();
-  }, [validateLoginInputs]);
-
-  useEffect(() => {
     validateRegisterInputs();
-  }, [validateRegisterInputs]);
+    getProducts();
+  }, [validateLoginInputs, validateRegisterInputs, getProducts]);
 
   const verifyToken = useCallback(() => {
     try {
