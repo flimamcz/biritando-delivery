@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import NavBar from '../Components/NavBar';
 import OrderCard from '../Components/OrderCard';
@@ -23,6 +24,10 @@ function Order() {
       />
     );
   });
+  const { isLogged } = useContext(MyContext);
+  if (!isLogged) {
+    return <Redirect to="/login" />;
+  }
   return (
     <div>
       <NavBar type={ typeNav } />

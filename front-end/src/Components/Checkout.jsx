@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { requestPost, requestGet } from '../services/request';
 
 function Checkout() {
+  const history = useHistory();
   const [cartItems, setCartItems] = useState([]);
   const [sellers, setSellers] = useState([]);
   const [priceTotal, setTotalPrice] = useState(0);
@@ -53,11 +54,15 @@ function Checkout() {
 
   const createSale = async (event) => {
     event.preventDefault();
-    const { email } = JSON.parse(localStorage.getItem('user'));
-    console.log(email);
+    const { email, token } = JSON.parse(localStorage.getItem('user'));
+    const headers = {
+      headers: {
+        Authorization: token,
+      },
+    };
     try {
-      const { id } = await requestPost('/customer/orders', { saleInfo, email });
-      return <Redirect to={ `/customer/orders/${id}` } />;
+      const { id } = await requestPost('/customer/orders', { saleInfo, email }, headers);
+      history.push(`/customer/orders/${id}`);
     } catch (error) {
       console.log(error.message);
     }
@@ -75,7 +80,6 @@ function Checkout() {
         <h1>Finalizar pedido</h1>
         {cartItems.length ? (
           <>
-
             <table>
               <thead>
                 <tr>
@@ -114,10 +118,17 @@ function Checkout() {
                         `customer_checkout__element-order-table-unit-price-${index}`
                       }
                     >
-                      {item.price}
+                      {
+                        Number(item.price)
+                          .toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+                      }
 
                     </td>
-                    <td>{(item.price * item.quantity).toFixed(2)}</td>
+                    <td>
+                      {Number(item.price * item.quantity)
+                        .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+
+                    </td>
                     <td
                       data-testid={
                         `customer_checkout__element-order-table-sub-total-${index}`
@@ -142,11 +153,11 @@ function Checkout() {
                 )) : 'Seu carrinho esta vazio'}
               </tbody>
             </table>
+            <h2>Preço total:</h2>
             <span
               data-testid="customer_checkout__element-order-total-price"
             >
-              Preço total R$:
-              {priceTotal.toFixed(2)}
+              {Number(priceTotal).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </span>
           </>
         ) : 'Seu carrinho esta vazio'}

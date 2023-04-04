@@ -20,9 +20,9 @@ export default function Customer() {
     <div>
       <Navbar type={ navBarCustomer } />
       <ul>
-        {productsData?.map(({ id, name, price, urlImage }) => (
+        {productsData?.map(({ id, name, price, urlImage }, i) => (
           <ProductCard
-            key={ id }
+            key={ i }
             id={ id }
             name={ name }
             price={ price }
