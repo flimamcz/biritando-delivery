@@ -1,6 +1,7 @@
 const { Sales, SalesProducts, Product } = require('../../database/models');
+const usersService = require('./usersService');
 
-const getbyId = async (saleId) => {  
+const getById = async (saleId) => {  
   const saleProduct = await SalesProducts.findAll(
     { where: { saleId } },
     { include: [{ model: Sales, as: 'sales' },
@@ -8,6 +9,12 @@ const getbyId = async (saleId) => {
   ] },
 );
   return saleProduct;
+};
+
+const getAllOrders = async (email) => {  
+  const { id } = usersService.getUserByEmail(email);
+  const orders = Sales.findAll({ where: { sellerId: id } });
+  return orders;
 };
 
 // const getbyId = async (id) => {  
@@ -19,5 +26,6 @@ const getbyId = async (saleId) => {
 // };
 
 module.exports = {
-  getbyId,
+  getById,
+  getAllOrders,
 };

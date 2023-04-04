@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { requestOrders, setToken, requestGet, requestPost }
+import { setToken, requestGet, requestPost }
   from '../services/request';
 import MyContext from './MyContext';
 
@@ -115,18 +115,25 @@ function Provider({ children }) {
     }
   }, []);
 
-  const getOrders = useCallback(async (event) => {
-    event.preventDefault();
-    const orders = await requestOrders('/seller/orders');
-    return orders;
-    // localStorage.setItem('orders', JSON.stringify(orders));
+  const getOrders = useCallback(async (role) => {
+    const { email } = JSON.parse(localStorage.getItem('user'));
+    try {
+      const body = { email };
+      const orders = await requestGet(`/${role}/orders`, body);
+      return orders;
+    } catch (error) {
+      console.log(error.message);
+    }
   }, []);
 
   useEffect(() => {
     validateLoginInputs();
     validateRegisterInputs();
+  }, [validateLoginInputs, validateRegisterInputs]);
+
+  useEffect(() => {
     getProducts();
-  }, [validateLoginInputs, validateRegisterInputs, getProducts]);
+  }, [getProducts]);
 
   const verifyToken = useCallback(() => {
     try {
