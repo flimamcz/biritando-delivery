@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { requestLogin, requestOrders, setToken } from '../services/request';
+import { requestOrders, setToken, requestGet, requestPost }
+  from '../services/request';
 import MyContext from './MyContext';
 
 function Provider({ children }) {
   const [isLogged, setIsLogged] = useState(false);
+  const [productsData, setProductsData] = useState([{}]);
   const [isLoginDisabled, toggleLoginButton] = useState(true);
   const [isRegisterDisabled, toggleRegisterButton] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
   const [formsInfo, setFormsInfo] = useState({
     loginEmailInput: '',
     loginPasswordInput: '',
@@ -37,6 +40,15 @@ function Provider({ children }) {
     toggleRegisterButton(!(verifyEmail && verifyUser && verifyName));
   }, [formsInfo]);
 
+  const getProducts = useCallback(async () => {
+    try {
+      const productsList = await requestGet('/customer/products');
+      setProductsData(productsList);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
   const handleChange = useCallback(
     ({ target }) => {
       const auxValues = { ...formsInfo };
@@ -49,21 +61,33 @@ function Provider({ children }) {
   const login = useCallback(async (event, info) => {
     event.preventDefault();
     try {
-      const user = await requestLogin('/login', info);
+      const user = await requestPost('/login', info);
       localStorage.setItem('user', JSON.stringify(user));
 
       setToken(user.token);
       setIsLogged(true);
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   }, []);
+
+  const register = useCallback(
+    async (event, info) => {
+      event.preventDefault();
+      try {
+        await requestPost('/register', info);
+        login(event, info);
+      } catch (error) {
+        setFailedTryRegister(true);
+      }
+    },
+    [login],
+  );
 
   const logOut = useCallback(async (event) => {
     event.preventDefault();
     try {
-      localStorage.removeItem('user');
+      localStorage.clear();
 
       setToken(null);
       setIsLogged(false);
@@ -87,6 +111,17 @@ function Provider({ children }) {
     validateRegisterInputs();
   }, [validateRegisterInputs]);
 
+  const verifyToken = useCallback(() => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      if (token) {
+        setIsLogged(true);
+      }
+    } catch (error) {
+      setIsLogged(false);
+    }
+  }, []);
+
   const contextValue = useMemo(
     () => ({
       handleChange,
@@ -101,6 +136,12 @@ function Provider({ children }) {
       toggleLoginButton,
       toggleRegisterButton,
       getOrders,
+      productsData,
+      getProducts,
+      setIsLogged,
+      verifyToken,
+      register,
+      failedTryRegister,
     }),
     [
       handleChange,
@@ -113,6 +154,12 @@ function Provider({ children }) {
       isLoginDisabled,
       isRegisterDisabled,
       getOrders,
+      productsData,
+      getProducts,
+      setIsLogged,
+      verifyToken,
+      register,
+      failedTryRegister,
     ],
   );
 
