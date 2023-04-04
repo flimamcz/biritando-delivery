@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
-import NavBar from '../Components/NavBar';
+import NavBar from '../Components/AdminForm';
 import OrderCard from '../Components/OrderCard';
 
 function Seller() {

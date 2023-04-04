@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { requestPost } from '../services/request';
 import NavBar from './NavBar';
@@ -14,8 +13,6 @@ export default function AdminForm() {
 
   const [failedRequest, setFailedRequest] = useState(false);
   const [sucessRequest, setSucessRequest] = useState(false);
-
-  const history = useHistory();
 
   const dataUser = {
     name: formsInfo.registerNameInput,
