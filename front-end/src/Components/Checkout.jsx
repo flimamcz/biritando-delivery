@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { Redirect } from 'react-router-dom';
 import { requestPost, requestGet } from '../services/request';
 
 function Checkout() {
@@ -29,7 +30,7 @@ function Checkout() {
       deliveryAddress: '',
       deliveryNumber: '',
       saleDate: Date.now(),
-      status: 'pendente',
+      status: 'Pendente',
     });
   }, [totalPrice]);
 
@@ -41,22 +42,30 @@ function Checkout() {
     setCartItems(items);
   };
 
-  const getSellers = async () => {
+  const getSellers = useCallback(async () => {
     try {
       const seller = await requestGet('/seller');
       setSellers(seller);
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, []);
 
-  const createSale = async () => {
+  const createSale = async (event) => {
+    event.preventDefault();
+    const { email } = JSON.parse(localStorage.getItem('user'));
+    console.log(email);
     try {
-      const ordersList = await requestPost('/customer/orders', saleInfo);
+      const { id } = await requestPost('/customer/orders', { saleInfo, email });
+      return <Redirect to={ `/customer/orders/${id}` } />;
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  useEffect(() => {
+    getSellers();
+  }, [getSellers]);
 
   useEffect(() => {
     setCartItems(localCartItems);
@@ -140,7 +149,6 @@ function Checkout() {
               data-testid="customer_checkout__element-order-total-price"
             >
               Preço total R$:
-              {' '}
               {priceTotal.toFixed(2)}
             </span>
           </>
@@ -150,9 +158,20 @@ function Checkout() {
       <form>
         <label htmlFor="seller">
           <p>P. Vendedora Responsável:</p>
-          <select value="" data-testid="customer_checkout__select-seller">
-            <option name="fulana Pereira" value="1">Fulana Pereira</option>
-            <option name="fulana Pereira" value="2">Fulana Silva</option>
+          <select
+            name="sellerId"
+            data-testid="customer_checkout__select-seller"
+            onChange={ handleChange }
+          >
+            { sellers.map((item, index) => (
+              <option
+                key={ index }
+                name={ item.name }
+                value={ item.id }
+              >
+                {item.name}
+              </option>
+            ))}
           </select>
         </label>
 

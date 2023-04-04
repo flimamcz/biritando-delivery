@@ -17,8 +17,15 @@ const getAllOrders = async (email) => {
   return orders;
 };
 
+const createSale = async (saleInfo, email) => {
+  const { id } = await usersService.getUserByEmail(email);
+  const sale = await Sales.create({ ...saleInfo, userId: id });
+  return sale;
+};
+
 module.exports = {
   getAll,
   getById,
   getAllOrders,
+  createSale,
 };
