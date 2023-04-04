@@ -1,19 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { requestPost, requestGet } from '../services/request';
 
 function Checkout() {
   const [cartItems, setCartItems] = useState([]);
+  const [sellers, setSellers] = useState([]);
   const [priceTotal, setTotalPrice] = useState(0);
+  const [saleInfo, setSaleInfo] = useState([]);
 
-  const titlesTable = [
-    'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
-  ];
   const localCartItems = JSON.parse(localStorage.getItem('cartItems'));
+
   const totalPrice = localCartItems.reduce((acc, curr) => (
     acc + curr.price * curr.quantity
   ), 0);
 
+  const handleChange = useCallback(
+    ({ target }) => {
+      const auxValues = { ...saleInfo };
+      auxValues[target.name] = target.value;
+      setSaleInfo(auxValues);
+    },
+    [saleInfo],
+  );
+
+  useEffect(() => {
+    setSaleInfo({
+      sellerId: 0,
+      totalPrice,
+      deliveryAddress: '',
+      deliveryNumber: '',
+      saleDate: Date.now(),
+      status: 'pendente',
+    });
+  }, [totalPrice]);
+
+  const titlesTable = [
+    'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
+  ];
+
   const reRender = (items) => {
     setCartItems(items);
+  };
+
+  const getSellers = async () => {
+    try {
+      const seller = await requestGet('/seller');
+      setSellers(seller);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const createSale = async () => {
+    try {
+      const ordersList = await requestPost('/customer/orders', saleInfo);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -26,80 +68,82 @@ function Checkout() {
       <div>
         <h1>Finalizar pedido</h1>
         {cartItems.length ? (
+          <>
 
-          <table>
-            <thead>
-              <tr>
-                {titlesTable && titlesTable.map((title, index) => (
-                  <th key={ index }>{title}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems ? cartItems.map((item, index) => (
-                <tr key={ item.id }>
-                  <td
-                    data-testid={
-                      `customer_checkout__element-order-table-item-number-${index}`
-                    }
-                  >
-                    {index + 1}
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_checkout__element-order-table-name-${index}`
-                    }
-                  >
-                    {item.name}
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_checkout__element-order-table-quantity-${index}`
-                    }
-                  >
-                    {item.quantity}
-
-                  </td>
-                  <td
-                    data-testid={
-                      `customer_checkout__element-order-table-unit-price-${index}`
-                    }
-                  >
-                    {item.price}
-
-                  </td>
-                  <td>{(item.price * item.quantity).toFixed(2)}</td>
-                  <td
-                    data-testid={
-                      `customer_checkout__element-order-table-sub-total-${index}`
-                    }
-                  >
-                    <button
-                      type="button"
-                      data-testid={
-                        `customer_checkout__element-order-table-remove-${index}`
-                      }
-                      onClick={ () => {
-                        cartItems.splice(cartItems.indexOf(item), 1);
-                        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                        reRender(localCartItems);
-                      } }
-                    >
-                      Remover
-                    </button>
-                  </td>
+            <table>
+              <thead>
+                <tr>
+                  {titlesTable && titlesTable.map((title, index) => (
+                    <th key={ index }>{title}</th>
+                  ))}
                 </tr>
+              </thead>
+              <tbody>
+                {cartItems ? cartItems.map((item, index) => (
+                  <tr key={ item.id }>
+                    <td
+                      data-testid={
+                        `customer_checkout__element-order-table-item-number-${index}`
+                      }
+                    >
+                      {index + 1}
+                    </td>
+                    <td
+                      data-testid={
+                        `customer_checkout__element-order-table-name-${index}`
+                      }
+                    >
+                      {item.name}
+                    </td>
+                    <td
+                      data-testid={
+                        `customer_checkout__element-order-table-quantity-${index}`
+                      }
+                    >
+                      {item.quantity}
 
-              )) : 'Seu carrinho esta vazio'}
-            </tbody>
-            <p
+                    </td>
+                    <td
+                      data-testid={
+                        `customer_checkout__element-order-table-unit-price-${index}`
+                      }
+                    >
+                      {item.price}
+
+                    </td>
+                    <td>{(item.price * item.quantity).toFixed(2)}</td>
+                    <td
+                      data-testid={
+                        `customer_checkout__element-order-table-sub-total-${index}`
+                      }
+                    >
+                      <button
+                        type="button"
+                        data-testid={
+                          `customer_checkout__element-order-table-remove-${index}`
+                        }
+                        onClick={ () => {
+                          cartItems.splice(cartItems.indexOf(item), 1);
+                          localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                          reRender(localCartItems);
+                        } }
+                      >
+                        Remover
+                      </button>
+                    </td>
+                  </tr>
+
+                )) : 'Seu carrinho esta vazio'}
+              </tbody>
+            </table>
+            <span
               data-testid="customer_checkout__element-order-total-price"
             >
               Preço total R$:
               {' '}
               {priceTotal.toFixed(2)}
-            </p>
-          </table>
+            </span>
+          </>
         ) : 'Seu carrinho esta vazio'}
       </div>
       <h2>Detalhes e Endereço para Entrega</h2>
@@ -115,6 +159,8 @@ function Checkout() {
         <label htmlFor="address">
           <p>Endereço</p>
           <input
+            onChange={ handleChange }
+            name="deliveryAddress"
             type="text"
             placeholder="Travessa Terceira da Castanheira, Bairro Muruci"
             data-testid="customer_checkout__input-address"
@@ -124,12 +170,15 @@ function Checkout() {
         <label htmlFor="number">
           <p>Número</p>
           <input
+            onChange={ handleChange }
+            name="deliveryNumber"
             type="text"
             data-testid="customer_checkout__input-address-number"
             placeholder="187"
           />
         </label>
         <button
+          onClick={ createSale }
           type="submit"
           data-testid="customer_checkout__button-submit-order"
         >

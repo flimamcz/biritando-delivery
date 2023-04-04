@@ -1,5 +1,10 @@
-const { Sales, SalesProducts, Product } = require('../../database/models');
+const { Sales, SalesProducts, Product, User } = require('../../database/models');
 const usersService = require('./usersService');
+
+const getAll = async () => {
+  const sellers = await User.findAll({ where: { role: 'seller' } });
+  return sellers;
+};
 
 const getById = async (saleId) => {  
   const saleProduct = await SalesProducts.findAll(
@@ -28,4 +33,5 @@ const getAllOrders = async (email) => {
 module.exports = {
   getById,
   getAllOrders,
+  getAll,
 };
