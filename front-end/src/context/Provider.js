@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { requestGet, requestPost, setToken } from '../services/request';
+import { requestOrders, setToken, requestGet, requestPost }
+  from '../services/request';
 import MyContext from './MyContext';
 
 function Provider({ children }) {
@@ -114,13 +115,18 @@ function Provider({ children }) {
     }
   }, []);
 
-  useEffect(() => {
-    validateLoginInputs();
-  }, [validateLoginInputs]);
+  const getOrders = useCallback(async (event) => {
+    event.preventDefault();
+    const orders = await requestOrders('/seller/orders');
+    return orders;
+    // localStorage.setItem('orders', JSON.stringify(orders));
+  }, []);
 
   useEffect(() => {
+    validateLoginInputs();
     validateRegisterInputs();
-  }, [validateRegisterInputs]);
+    getProducts();
+  }, [validateLoginInputs, validateRegisterInputs, getProducts]);
 
   const verifyToken = useCallback(() => {
     try {
@@ -147,6 +153,7 @@ function Provider({ children }) {
       isRegisterDisabled,
       toggleLoginButton,
       toggleRegisterButton,
+      getOrders,
       productsData,
       getProducts,
       getOrdersList,
@@ -167,6 +174,7 @@ function Provider({ children }) {
       failedTryLogin,
       isLoginDisabled,
       isRegisterDisabled,
+      getOrders,
       productsData,
       getProducts,
       setIsLogged,
