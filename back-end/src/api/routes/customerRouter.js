@@ -7,5 +7,6 @@ customerRouter.get('/products', productsController.getAllProducts);
 customerRouter.get('/orders/user/:id', productsController.getAllOrders);
 customerRouter.get('/orders/:id', productsController.getById);
 customerRouter.post('/orders', productsController.createSale);
+customerRouter.post('/products', productsController.createProductsSale);
 
 module.exports = customerRouter;

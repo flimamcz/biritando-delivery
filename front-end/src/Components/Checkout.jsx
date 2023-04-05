@@ -62,6 +62,7 @@ function Checkout() {
     };
     try {
       const { id } = await requestPost('/customer/orders', { saleInfo, email }, headers);
+      await requestPost('customer/products', { cartItems, id });
       history.push(`/customer/orders/${id}`);
     } catch (error) {
       console.log(error.message);
