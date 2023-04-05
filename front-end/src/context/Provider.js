@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { setToken, requestGet, requestPost }
   from '../services/request';
@@ -20,6 +21,7 @@ function Provider({ children }) {
     registerPasswordInput: '',
     role: '',
   });
+  const history = useHistory();
 
   const validateLoginInputs = useCallback(() => {
     const { loginEmailInput, loginPasswordInput } = formsInfo;
@@ -103,11 +105,9 @@ function Provider({ children }) {
     [login],
   );
 
-  const logOut = useCallback(async (event) => {
-    event.preventDefault();
+  const logOut = useCallback(async () => {
     try {
       localStorage.clear();
-
       setToken(null);
       setIsLogged(false);
     } catch (error) {
@@ -135,15 +135,23 @@ function Provider({ children }) {
     getProducts();
   }, [getProducts]);
 
-  const verifyToken = useCallback(() => {
+  const verifyLogin = useCallback(() => {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       if (token) {
+        setToken(token);
         setIsLogged(true);
+      } else {
+        setIsLogged(false);
+        history.push('/login');
       }
     } catch (error) {
       setIsLogged(false);
     }
+  }, []);
+
+  useEffect(() => {
+    verifyLogin();
   }, []);
 
   const contextValue = useMemo(
@@ -165,7 +173,7 @@ function Provider({ children }) {
       getProducts,
       getOrdersList,
       setIsLogged,
-      verifyToken,
+      verifyLogin,
       register,
       failedTryRegister,
     }),
@@ -185,7 +193,7 @@ function Provider({ children }) {
       productsData,
       getProducts,
       setIsLogged,
-      verifyToken,
+      verifyLogin,
       register,
       failedTryRegister,
     ],

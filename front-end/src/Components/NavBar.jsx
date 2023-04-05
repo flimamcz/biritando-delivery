@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
-
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
 function NavBar({ type }) {
   const [username, setUsername] = useState('');
   const { logOut } = useContext(MyContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem('user'))) {
@@ -36,7 +36,10 @@ function NavBar({ type }) {
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
-        onClick={ logOut }
+        onClick={ () => {
+          logOut();
+          history.push('/login');
+        } }
       >
         Sair
       </button>

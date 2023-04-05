@@ -124,16 +124,16 @@ function Checkout() {
                       }
 
                     </td>
-                    <td>
-                      {Number(item.price * item.quantity)
-                        .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-
-                    </td>
                     <td
                       data-testid={
                         `customer_checkout__element-order-table-sub-total-${index}`
                       }
                     >
+                      {Number(item.price * item.quantity)
+                        .toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+
+                    </td>
+                    <td>
                       <button
                         type="button"
                         data-testid={

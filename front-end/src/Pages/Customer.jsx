@@ -1,20 +1,16 @@
 /* eslint-disable quotes */
 import React, { useContext, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ProductCard from '../Components/ProductsCard';
 import MyContext from '../context/MyContext';
 import { navBarCustomer } from '../utils/navBarinfo';
 import Navbar from '../Components/NavBar';
 
 export default function Customer() {
-  const { productsData, isLogged } = useContext(MyContext);
+  const { productsData } = useContext(MyContext);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const history = useHistory();
-
-  if (!isLogged) {
-    return <Redirect to="/login" />;
-  }
 
   return (
     <div>
