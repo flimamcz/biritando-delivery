@@ -64,8 +64,9 @@ function Provider({ children }) {
     event.preventDefault();
     try {
       const user = await requestPost('/login', info);
-      localStorage.setItem('user', JSON.stringify(user));
-
+      const { id, ...userInfo } = user;
+      localStorage.setItem('user', JSON.stringify(userInfo));
+      localStorage.setItem('userId', JSON.stringify({ userId: id }));
       setToken(user.token);
       setIsLogged(true);
     } catch (error) {
@@ -93,17 +94,6 @@ function Provider({ children }) {
       setIsLogged(false);
     } catch (error) {
       setIsLogged(false);
-    }
-  }, []);
-
-  const getOrders = useCallback(async (role) => {
-    const { email } = JSON.parse(localStorage.getItem('user'));
-    try {
-      const body = { email };
-      const orders = await requestGet(`/${role}/orders`, body);
-      return orders;
-    } catch (error) {
-      console.log(error.message);
     }
   }, []);
 
@@ -148,7 +138,6 @@ function Provider({ children }) {
       isRegisterDisabled,
       toggleLoginButton,
       toggleRegisterButton,
-      getOrders,
       productsData,
       getProducts,
       setIsLogged,
@@ -166,7 +155,6 @@ function Provider({ children }) {
       failedTryLogin,
       isLoginDisabled,
       isRegisterDisabled,
-      getOrders,
       productsData,
       getProducts,
       setIsLogged,

@@ -6,8 +6,8 @@ const getAll = async (_req, res) => {
 };
 
 const getAllOrders = async (req, res) => {
-  const { email } = req.body;
-  const products = await sellerService.getAllOrders(email);
+  const { id } = req.params;
+  const products = await sellerService.getAllOrders(id);
   return res.status(200).json(products);
 };
 
