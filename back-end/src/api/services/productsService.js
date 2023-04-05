@@ -1,4 +1,4 @@
-const { Product, Sales, User } = require('../../database/models');
+const { Product, Sales, User, SalesProducts } = require('../../database/models');
 const usersService = require('./usersService');
 
 const getAll = async () => {  
@@ -39,9 +39,17 @@ const createSale = async (saleInfo, email) => {
   return sale;
 };
 
+const createProductsSale = async (saleItems, id) => {
+  saleItems.forEach(async (e) => {
+    await SalesProducts.create({ saleId: id, productId: e.id, quantity: e.quantity });
+  });
+  return null;
+};
+
 module.exports = {
   getAll,
   getById,
   getAllOrders,
   createSale,
+  createProductsSale,
 };
