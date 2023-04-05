@@ -16,6 +16,7 @@ const newLogin = async (email, password) => {
   }, auth.secret, { expiresIn: auth.expires });
 
   const result = {
+    id: user.id,
     name: user.name,
     email: user.email,
     role: user.role,
