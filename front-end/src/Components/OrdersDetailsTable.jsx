@@ -1,15 +1,6 @@
-import { useParams } from 'react-router-dom';
-import React, { useContext, useEffect } from 'react';
-import MyContext from '../context/MyContext';
+import React from 'react';
 
-function OrderDetailsTable(type) {
-  const { orderList, getOrdersList } = useContext(MyContext);
-  const { id } = useParams();
-
-  useEffect(() => {
-    getOrdersList(id, type);
-  }, [getOrdersList, type]);
-
+function OrderDetailsTable() {
   return (
     <div>
       <table>
@@ -23,7 +14,7 @@ function OrderDetailsTable(type) {
           </tr>
         </thead>
         <tbody>
-          {orderList ? (<p>funcionou</p>) : (<p>falhou</p>) }
+          { }
         </tbody>
       </table>
     </div>

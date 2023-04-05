@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import { requestGet } from '../services/request';
 
-function OrderDetailsHeader(type, orderData) {
-  const { deliveryNumber, sellerName, saleDate, status } = orderData;
+function OrderDetailsHeader(props) {
+  const { type } = props;
+  const [orderList, setOrder] = useState({
+    deliveryNumber: '',
+    saleDate: '',
+    status: '',
+    seller: '',
+  });
+  const { id } = useParams();
+
+  const getOrder = async () => {
+    try {
+      const order = await requestGet(`/${type}/orders/${id}`);
+      setOrder(order);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getOrder();
+  }, []);
+
+  const { saleDate, status, seller } = orderList;
 
   const addZerosOnRightSide = (num) => {
     const Numberzeros = 4;
@@ -20,7 +45,7 @@ function OrderDetailsHeader(type, orderData) {
       <div
         data-testid={ `${type}_order_details__element-order-details-label-order-id` }
       >
-        <h2>{ `PEDIDO: ${addZerosOnRightSide(deliveryNumber)}` }</h2>
+        <h2>{ `PEDIDO: ${addZerosOnRightSide(orderList.id)}` }</h2>
       </div>
       {
         type === 'customer'
@@ -30,7 +55,7 @@ function OrderDetailsHeader(type, orderData) {
               `${type}_order_details__element-order-details-label-seller-name`
             }
           >
-            <span>{ `P. Vend: ${sellerName}` }</span>
+            <span>{ `P. Vend: ${seller.name}` }</span>
           </div>
         )
       }
@@ -55,5 +80,9 @@ function OrderDetailsHeader(type, orderData) {
     </div>
   );
 }
+
+OrderDetailsHeader.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default OrderDetailsHeader;

@@ -9,7 +9,7 @@ function CustomerOrdersDetails() {
     <div>
       <Navbar type={ navBarCustomer } />
       <OrderDetailsHeader type="customer" />
-      <OrderDetailsTable type="customer" />
+      <OrderDetailsTable />
     </div>
   );
 }

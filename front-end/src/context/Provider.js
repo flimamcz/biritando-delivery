@@ -8,7 +8,6 @@ import MyContext from './MyContext';
 function Provider({ children }) {
   const [isLogged, setIsLogged] = useState(false);
   const [productsData, setProductsData] = useState([{}]);
-  const [orderList, setOrderList] = useState([{}]);
   const [isLoginDisabled, toggleLoginButton] = useState(true);
   const [isRegisterDisabled, toggleRegisterButton] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -49,24 +48,6 @@ function Provider({ children }) {
       setProductsData(productsList);
     } catch (error) {
       console.log(error.message);
-    }
-  }, []);
-
-  const getOrdersList = useCallback(async (id, role) => {
-    if (role === 'customer') {
-      try {
-        const ordersList = await requestGet(`/customer/orders/${id}`);
-        setOrderList(ordersList);
-      } catch (error) {
-        console.log(error.message);
-      }
-    } else if (role === 'seller') {
-      try {
-        const ordersList = await requestGet(`/seller/orders/${id}`);
-        setOrderList(ordersList);
-      } catch (error) {
-        console.log(error.message);
-      }
     }
   }, []);
 
@@ -162,7 +143,6 @@ function Provider({ children }) {
       login,
       logOut,
       isLogged,
-      orderList,
       failedTryLogin,
       isLoginDisabled,
       isRegisterDisabled,
@@ -171,7 +151,6 @@ function Provider({ children }) {
       getOrders,
       productsData,
       getProducts,
-      getOrdersList,
       setIsLogged,
       verifyLogin,
       register,
@@ -181,10 +160,8 @@ function Provider({ children }) {
       handleChange,
       formsInfo,
       setFormsInfo,
-      getOrdersList,
       login,
       logOut,
-      orderList,
       isLogged,
       failedTryLogin,
       isLoginDisabled,
