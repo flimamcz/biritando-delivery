@@ -96,17 +96,6 @@ function Provider({ children }) {
     }
   }, []);
 
-  const getOrders = useCallback(async (role) => {
-    const { email } = JSON.parse(localStorage.getItem('user'));
-    try {
-      const body = { email };
-      const orders = await requestGet(`/${role}/orders`, body);
-      return orders;
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
-
   useEffect(() => {
     validateLoginInputs();
     validateRegisterInputs();
@@ -148,7 +137,6 @@ function Provider({ children }) {
       isRegisterDisabled,
       toggleLoginButton,
       toggleRegisterButton,
-      getOrders,
       productsData,
       getProducts,
       setIsLogged,
@@ -166,7 +154,6 @@ function Provider({ children }) {
       failedTryLogin,
       isLoginDisabled,
       isRegisterDisabled,
-      getOrders,
       productsData,
       getProducts,
       setIsLogged,

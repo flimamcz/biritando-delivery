@@ -28,18 +28,10 @@ const getById = async (id) => {
 };
 
 const getAllOrders = async (email) => {  
-  const { id } = usersService.getUserByEmail(email);
+  const { id } = await usersService.getUserByEmail(email);
   const orders = Sales.findAll({ where: { sellerId: id } });
   return orders;
 };
-
-// const getbyId = async (id) => {  
-//   const sale = await Sales.findOne({ where: { sellerId: id } });
-//   const { saleId } = sale;
-//   const salesProducts = await getSaleProducts(saleId);
-//   const result = { ...sale, ...salesProducts };
-//   return result;
-// };
 
 module.exports = {
   getById,

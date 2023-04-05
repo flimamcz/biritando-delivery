@@ -28,7 +28,7 @@ const getById = async (id) => {
 };
 
 const getAllOrders = async (email) => {  
-  const { id } = usersService.getUserByEmail(email);
+  const { id } = await usersService.getUserByEmail(email);
   const orders = Sales.findAll({ where: { userId: id } });
   return orders;
 };
