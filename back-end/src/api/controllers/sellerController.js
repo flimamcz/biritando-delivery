@@ -1,5 +1,10 @@
 const sellerService = require('../services/sellerService');
 
+const getAll = async (_req, res) => {
+  const sellers = await sellerService.getAll();
+  return res.status(200).json(sellers);
+};
+
 const getAllOrders = async (req, res) => {
   const { email } = req.body;
   const products = await sellerService.getAllOrders(email);
@@ -12,4 +17,4 @@ const getById = async (req, res) => {
   return res.status(200).json(products);
 };
 
-module.exports = { getById, getAllOrders };
+module.exports = { getById, getAllOrders, getAll };

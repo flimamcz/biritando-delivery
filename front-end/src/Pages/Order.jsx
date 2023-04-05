@@ -9,24 +9,31 @@ function Order() {
   const typeNav = role === 'seller' ? navBarSeller : navBarCustomer[1];
   const { getOrders } = useContext(MyContext);
   const orderList = getOrders(role);
-  const orders = orderList.map((item, index) => {
-    const { id, status, saleDate, totalPrice, deliveryAddress } = item;
-    return (
-      <OrderCard
-        key={ index }
-        prop={ role }
-        id={ id }
-        status={ status }
-        saleDate={ saleDate }
-        totalPrice={ totalPrice }
-        deliveryAddress={ deliveryAddress }
-      />
-    );
-  });
+
   return (
     <div>
-      <NavBar type={ typeNav } />
-      <ul>{orders}</ul>
+      <NavBar type={ [typeNav] } />
+      <ul>
+        {orderList.length ? (
+          orderList.map((item, index) => {
+            const { id, status, saleDate, totalPrice, deliveryAddress } = item;
+            return (
+              <OrderCard
+                key={ index }
+                prop={ role }
+                id={ id }
+                status={ status }
+                saleDate={ saleDate }
+                totalPrice={ totalPrice }
+                deliveryAddress={ deliveryAddress }
+              />
+            );
+          })
+        ) : (
+
+          <p>Não tem pedidos</p>
+        )}
+      </ul>
     </div>
   );
 }

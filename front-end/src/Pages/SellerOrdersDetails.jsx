@@ -9,7 +9,7 @@ function SellerOrdersDetails() {
     <div>
       <Navbar type={ navBarSeller } />
       <OrderDetailsHeader type="seller" />
-      <OrderDetailsTable type="seller" />
+      <OrderDetailsTable />
     </div>
   );
 }

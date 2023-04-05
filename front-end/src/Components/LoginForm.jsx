@@ -7,7 +7,7 @@ function LoginForm() {
     handleChange, login,
     formsInfo, failedTryLogin,
     isLogged, isLoginDisabled,
-    setFormsInfo, verifyToken,
+    setFormsInfo,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -21,8 +21,7 @@ function LoginForm() {
       registerPasswordInput: '',
       role: '',
     });
-    verifyToken();
-  }, [setFormsInfo, isLogged, verifyToken]);
+  }, [setFormsInfo, isLogged]);
 
   const { loginEmailInput, loginPasswordInput } = formsInfo;
 
@@ -89,6 +88,11 @@ function LoginForm() {
       >
         Ainda não tenho conta
       </button>
+      <ul>
+        <li> adm@deliveryapp.com | --adm2@21!!-- </li>
+        <li> fulana@deliveryapp.com | fulana@123 </li>
+        <li> zebirita@email.com | $#zebirita#$ </li>
+      </ul>
     </form>
   );
 }
