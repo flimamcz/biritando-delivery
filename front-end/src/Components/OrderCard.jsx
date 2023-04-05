@@ -23,7 +23,7 @@ function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) 
   return (
     <li key={ id }>
       <Link to={ `/${prop}/orders/${id}` }>
-        <p data-testid={ `${prop}_orders__element_order-id-${id}` }>
+        <p data-testid={ `${prop}_orders__element-order-id-${id}` }>
           {
             addZerosOnRightSide(id)
           }
