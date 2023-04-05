@@ -6,13 +6,13 @@ import { navBarCustomer, navBarSeller } from '../utils/navBarinfo';
 
 function Order() {
   const { role } = JSON.parse(localStorage.getItem('user'));
-  const typeNav = role === 'seller' ? navBarSeller : navBarCustomer[1];
+  const typeNav = role === 'seller' ? navBarSeller : navBarCustomer;
   const { getOrders } = useContext(MyContext);
   const orderList = getOrders(role);
 
   return (
     <div>
-      <NavBar type={ [typeNav] } />
+      <NavBar type={ typeNav } />
       <ul>
         {orderList.length ? (
           orderList.map((item, index) => {
