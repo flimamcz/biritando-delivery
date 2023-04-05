@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
   return (
-    <li key={ index }>
+    <li key={ id }>
       <Link to={ `/${prop}/orders/${id}` }>
         <p data-testid={ `${prop}_orders__element_order-id-${id}` }>{id}</p>
         <p data-testid={ `${prop}_orders__element-delivery-status-${id}` }>{status}</p>
@@ -25,9 +25,9 @@ function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) 
 export default OrderCard;
 OrderCard.propTypes = {
   prop: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
-  saleDate: PropTypes.instanceOf(Date).isRequired,
-  totalPrice: PropTypes.number.isRequired,
+  saleDate: PropTypes.string.isRequired,
+  totalPrice: PropTypes.string.isRequired,
   deliveryAddress: PropTypes.string.isRequired,
 };

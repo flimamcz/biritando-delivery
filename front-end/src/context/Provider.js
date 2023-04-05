@@ -64,8 +64,9 @@ function Provider({ children }) {
     event.preventDefault();
     try {
       const user = await requestPost('/login', info);
-      localStorage.setItem('user', JSON.stringify(user));
-
+      const { id, ...userInfo } = user;
+      localStorage.setItem('user', JSON.stringify(userInfo));
+      localStorage.setItem('userId', JSON.stringify({ userId: id }));
       setToken(user.token);
       setIsLogged(true);
     } catch (error) {

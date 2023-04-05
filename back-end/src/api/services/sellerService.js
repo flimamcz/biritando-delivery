@@ -1,5 +1,4 @@
 const { Sales, User } = require('../../database/models');
-const usersService = require('./usersService');
 
 const getAll = async () => {
   const sellers = await User.findAll({ where: { role: 'seller' } });
@@ -27,8 +26,7 @@ const getById = async (id) => {
   return sale;
 };
 
-const getAllOrders = async (email) => {  
-  const { id } = await usersService.getUserByEmail(email);
+const getAllOrders = async (id) => {
   const orders = Sales.findAll({ where: { sellerId: id } });
   return orders;
 };
