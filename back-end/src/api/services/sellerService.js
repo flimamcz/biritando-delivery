@@ -31,8 +31,14 @@ const getAllOrders = async (id) => {
   return orders;
 };
 
+const updateOrderStatus = async (newStatus, id) => {
+  const orders = await Sales.update({ status: newStatus }, { where: { id } }); 
+  return orders;
+};
+
 module.exports = {
   getById,
   getAllOrders,
   getAll,
+  updateOrderStatus,
 };
