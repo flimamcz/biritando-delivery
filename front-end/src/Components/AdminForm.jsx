@@ -150,7 +150,6 @@ export default function AdminForm() {
           )
         }
       </form>
-      <h2>Lista de usuários</h2>
     </>
   );
 }

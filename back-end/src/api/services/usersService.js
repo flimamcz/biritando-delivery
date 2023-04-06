@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
+const { Op } = require('sequelize');
 const { User } = require('../../database/models');
 const auth = require('../auth/authService');
 
@@ -42,7 +43,20 @@ const register = async (name, email, password, role = 'customer') => {
   return result;
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll({ where: { 
+    [Op.or]: [{ role: 'customer' }, { role: 'seller' }] } });
+  return users;
+};
+
+const deleteUser = async (id) => {
+  await User.destroy({ where: id });
+  return 'success';
+};
+
 module.exports = {
   getUserByEmail,
   register,
+  getAllUsers,
+  deleteUser,
 };
