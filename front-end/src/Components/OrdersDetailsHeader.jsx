@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
+import StatusButton from './StatusButton';
 
 function OrderDetailsHeader(props) {
   const { type } = props;
@@ -13,18 +14,18 @@ function OrderDetailsHeader(props) {
   });
   const { id } = useParams();
 
-  const getOrder = async () => {
+  const getOrder = useCallback(async () => {
     try {
       const order = await requestGet(`/${type}/orders/${id}`);
       setOrder(order);
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, [id, type]);
 
   useEffect(() => {
     getOrder();
-  }, []);
+  }, [getOrder]);
 
   const { saleDate, status, seller } = orderList;
 
@@ -66,16 +67,19 @@ function OrderDetailsHeader(props) {
           { `${convertDate(saleDate)}` }
         </h2>
       </div>
-      <div
-        data-testid={ `
-        ${type}_order_details__element-order-details-label-delivery-status` }
-      >
-        <h2>{ status }</h2>
+      <div>
+        <h2
+          data-testid={
+            `${type}_order_details__element-order-details-label-delivery-status`
+          }
+        >
+          { status }
+        </h2>
       </div>
       <div
         data-testid={ `${type}_order_details__button-delivery-check` }
       >
-        <button type="button" onClick={ console.log('ok') }>MARCAR COMO ENTREGUE</button>
+        <StatusButton getOrder={ getOrder } currentStatus={ status } />
       </div>
     </div>
   );

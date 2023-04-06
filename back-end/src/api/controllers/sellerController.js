@@ -17,4 +17,11 @@ const getById = async (req, res) => {
   return res.status(200).json(products);
 };
 
-module.exports = { getById, getAllOrders, getAll };
+const updateOrderStatus = async (req, res) => {
+  const { newStatus } = req.body;
+  const { id } = req.params;
+  const updatedOrder = await sellerService.updateOrderStatus(newStatus, id);
+  return res.status(200).json(updatedOrder);
+};
+
+module.exports = { getById, getAllOrders, getAll, updateOrderStatus };

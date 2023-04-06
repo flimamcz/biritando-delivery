@@ -14,6 +14,11 @@ export const requestGet = async (endpoint, body) => {
   return data;
 };
 
+export const requestPut = async (endpoint, body) => {
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };

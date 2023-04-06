@@ -11,5 +11,6 @@ sellerRouter.get(
 // tokenValidation,
 sellerController.getAll,
 );
+sellerRouter.put('/orders/:id', sellerController.updateOrderStatus);
 
 module.exports = sellerRouter;
