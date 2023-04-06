@@ -23,4 +23,9 @@ export const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };
 
+export const requestDelete = async (endpoint) => {
+  const { data } = await api.delete(endpoint);
+  return data;
+};
+
 export default api;

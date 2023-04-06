@@ -33,4 +33,15 @@ const registerAdm = async (req, res) => {
   return res.status(201).json(resultNewUser);
 };
 
-module.exports = { register, registerAdm };
+const getAllUsers = async (req, res) => {
+  const users = await userService.getAllUsers();
+  return res.status(200).json(users);
+};
+
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  await userService.deleteUser(Number(id));
+  return res.status(200).send();
+};
+
+module.exports = { register, registerAdm, getAllUsers, deleteUser };
