@@ -23,8 +23,8 @@ export const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };
 
-export const requestDelete = async (endpoint, body) => {
-  const { data } = await api.delete(endpoint, body);
+export const requestDelete = async (endpoint) => {
+  const { data } = await api.delete(endpoint);
   return data;
 };
 

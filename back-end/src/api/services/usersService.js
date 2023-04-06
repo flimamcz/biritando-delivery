@@ -50,7 +50,7 @@ const getAllUsers = async () => {
 };
 
 const deleteUser = async (id) => {
-  await User.destroy({ where: id });
+  await User.destroy({ where: { id } });
   return 'success';
 };
 

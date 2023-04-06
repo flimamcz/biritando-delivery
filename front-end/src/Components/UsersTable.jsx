@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { requestDelete } from '../services/request';
+import { requestGet, requestDelete } from '../services/request';
 
 function UsersTable() {
   const [usersList, setUsersList] = useState([]);
@@ -15,13 +15,12 @@ function UsersTable() {
 
   useEffect(() => {
     getUsers();
-  }, [getUsers]);
+  }, [usersList]);
 
   const removeUser = useCallback(async (id) => {
     try {
-      await requestDelete('/user', { id });
-      const users = await requestGet('/user');
-      setUsersList(users);
+      await requestDelete(`/user/${id}`);
+      await getUsers();
     } catch (error) {
       console.log(error.message);
     }
@@ -50,17 +49,20 @@ function UsersTable() {
                 >
                   {index + 1}
                 </td>
-                <td data-testid="admin_manage__input-email">{name}</td>
+                <td data-testid={ `admin_manage__element-user-table-name-${index}` }>
+                  {name}
+                </td>
                 <td data-testid={ `admin_manage__element-user-table-email-${index}` }>
                   {email}
                 </td>
                 <td data-testid={ `admin_manage__element-user-table-role-${index}` }>
                   {role}
                 </td>
-                <td data-test-id={ `admin_manage__element-user-table-remove-${index}` }>
+                <td>
                   <button
+                    data-testid={ `admin_manage__element-user-table-remove-${index}` }
                     type="button"
-                    onClick={ () => { removeUser(id); } }
+                    onClick={ () => removeUser(id) }
                   >
                     Excluir
                   </button>
