@@ -30,13 +30,13 @@ function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) 
 
         </p>
         <p data-testid={ `${prop}_orders__element-delivery-status-${id}` }>{status}</p>
-        <p data-testid={ `${prop}_order__element-order-date-${id}` }>
+        <p data-testid={ `${prop}_orders__element-order-date-${id}` }>
           {
             convertDate(saleDate)
           }
 
         </p>
-        <p data-testid={ `${prop}_order__element-card-price-${id}` }>
+        <p data-testid={ `${prop}_orders__element-card-price-${id}` }>
           {
             convertTotal(totalPrice)
           }
@@ -44,7 +44,7 @@ function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) 
         </p>
         {
           prop === 'customer' && (
-            <p data-testid={ `${prop}_order__element-card-address-${id}` }>
+            <p data-testid={ `${prop}_orders__element-card-address-${id}` }>
               {deliveryAddress}
             </p>
           )
