@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment/moment';
 import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
 import StatusButton from './StatusButton';
@@ -35,11 +36,7 @@ function OrderDetailsHeader(props) {
     return newNum;
   };
 
-  const convertDate = (data) => {
-    const now = new Date(data);
-    const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
-    return date;
-  };
+  const convertDate = (data) => moment(data).format('DD/MM/YYYY');
 
   return (
     <div>

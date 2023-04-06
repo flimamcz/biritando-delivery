@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment/moment';
 
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
   const addZerosOnRightSide = (num) => {
@@ -9,11 +10,7 @@ function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) 
     return newNum;
   };
 
-  const convertDate = (data) => {
-    const now = new Date(data);
-    const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
-    return date;
-  };
+  const convertDate = (data) => moment(data).format('DD/MM/YYYY');
 
   const convertTotal = (total) => {
     const totalNumber = Number(total);
