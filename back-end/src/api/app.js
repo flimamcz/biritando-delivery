@@ -6,6 +6,7 @@ const registerRouter = require('./routes/userRouter');
 const customerRouter = require('./routes/customerRouter');
 const adminRouter = require('./routes/adminRouter');
 const sellerRouter = require('./routes/sellerRouter');
+const saleRouter = require('./routes/salesRouter');
 
 const app = express();
 app.use('/images', express.static(path.join(__dirname, '/images')));
@@ -20,5 +21,6 @@ app.use('/register', registerRouter);
 app.use('/customer', customerRouter);
 app.use('/admin', adminRouter);
 app.use('/seller', sellerRouter);
+app.use('/sales', saleRouter);
 
 module.exports = app; 
