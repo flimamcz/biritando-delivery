@@ -34,7 +34,7 @@ export default function RegisterForm() {
     <form>
       <span>{`${isLogged}`}</span>
       <label htmlFor="name">
-        nome
+        Nome
         <input
           type="text"
           name="registerNameInput"
