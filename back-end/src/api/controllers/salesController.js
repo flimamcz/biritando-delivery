@@ -1,4 +1,4 @@
-const saleService = require('../services/saleService');
+const saleService = require('../services/salesService');
 
 const getSaleProducts = async (req, res) => {
   const { id } = req.params;

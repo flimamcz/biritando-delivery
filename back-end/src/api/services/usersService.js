@@ -10,6 +10,29 @@ const getUserByEmail = async (email) => {
   return user;
 };
 
+const newLogin = async (email, password) => {  
+  const passwordHash = md5(password);
+  const user = await this.getUserByEmail(email);
+  
+  if (!user || user.password !== passwordHash) {
+    return { type: 'INVALID_FIELDS', message: 'Invalid fields' }; 
+  }
+
+  const token = jwt.sign({
+   name: user.name, email, role: user.role,
+  }, auth.secret, { expiresIn: auth.expires });
+
+  const result = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    token,
+  };
+
+  return result;
+};
+
 const getUserByName = async (name) => {
   const user = await User.findOne({ where: { name } });
 
@@ -55,8 +78,8 @@ const deleteUser = async (id) => {
 };
 
 module.exports = {
-  getUserByEmail,
   register,
   getAllUsers,
   deleteUser,
+  newLogin,
 };

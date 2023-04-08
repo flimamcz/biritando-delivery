@@ -1,5 +1,12 @@
 const userService = require('../services/usersService');
 
+const newLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const login = await userService.newLogin(email, password);
+  if (login.type) return res.status(404).json({ message: login.message });
+  res.status(200).json(login);
+};
+
 const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -44,4 +51,4 @@ const deleteUser = async (req, res) => {
   return res.status(200).send();
 };
 
-module.exports = { register, registerAdm, getAllUsers, deleteUser };
+module.exports = { register, registerAdm, getAllUsers, deleteUser, newLogin };

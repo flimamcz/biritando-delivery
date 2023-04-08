@@ -5,7 +5,7 @@ const adminRouter = require('./routes/adminRouter');
 const customerRouter = require('./routes/customerRouter');
 const loginRouter = require('./routes/loginRouter');
 const registerRouter = require('./routes/registerRouter');
-const salesRouter = require('./routes/salesRouter');
+const salesRouter = require('./routes/saleRouter');
 const sellerRouter = require('./routes/sellerRouter');
 const userRouter = require('./routes/userRouter');
 

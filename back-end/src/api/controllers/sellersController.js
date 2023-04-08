@@ -1,7 +1,7 @@
-const sellerService = require('../services/sellerService');
+const sellerService = require('../services/sellersService');
 
-const getAll = async (_req, res) => {
-  const sellers = await sellerService.getAll();
+const getAllSellers = async (_req, res) => {
+  const sellers = await sellerService.getAllSellers();
   return res.status(200).json(sellers);
 };
 
@@ -11,9 +11,9 @@ const getAllOrders = async (req, res) => {
   return res.status(200).json(products);
 };
 
-const getById = async (req, res) => {
+const getSellerById = async (req, res) => {
   const { id } = req.params;
-  const products = await sellerService.getById(Number(id));
+  const products = await sellerService.getSellerById(Number(id));
   return res.status(200).json(products);
 };
 
@@ -24,4 +24,4 @@ const updateOrderStatus = async (req, res) => {
   return res.status(200).json(updatedOrder);
 };
 
-module.exports = { getById, getAllOrders, getAll, updateOrderStatus };
+module.exports = { getSellerById, getAllOrders, getAllSellers, updateOrderStatus };
