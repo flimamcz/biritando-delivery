@@ -6,7 +6,7 @@ const customerRouter = express.Router();
 
 customerRouter.get('/products', productsController.getAllProducts);
 customerRouter.post('/products', productsController.createProductsSale);
-customerRouter.get('/orders/user/:id', salesController.getAllOrders);
+customerRouter.get('/orders/user/:id', salesController.getAllOrdersCustomer);
 customerRouter.get('/orders/:id', salesController.getOrderById);
 customerRouter.put('/orders/:id', salesController.updateOrderStatus);
 customerRouter.post('/orders', salesController.createSale);

@@ -4,7 +4,7 @@ const salesController = require('../controllers/salesController');
 
 const sellerRouter = express.Router();
 
-sellerRouter.get('/orders/user/:id', salesController.getAllOrders);
+sellerRouter.get('/orders/user/:id', salesController.getAllOrdersSeller);
 sellerRouter.get('/orders/:id', salesController.getOrderById);
 sellerRouter.put('/orders/:id', salesController.updateOrderStatus);
 sellerRouter.get('/', usersController.getAllSellers);

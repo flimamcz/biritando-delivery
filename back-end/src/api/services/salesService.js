@@ -44,8 +44,13 @@ const getOrderById = async (id) => {
   return sale;
 };
 
-const getAllOrders = async (id) => {
-  const orders = Sales.findAll({ where: { sellerId: id } });
+const getAllOrdersSeller = async (id) => {
+  const orders = await Sales.findAll({ where: { sellerId: id } });
+  return orders;
+};
+
+const getAllOrdersCustomer = async (id) => {
+  const orders = await Sales.findAll({ where: { userId: id } });
   return orders;
 };
 
@@ -63,7 +68,8 @@ const updateOrderStatus = async (newStatus, id) => {
 module.exports = {
   getSaleProducts,
   getOrderById,
-  getAllOrders,
+  getAllOrdersCustomer,
+  getAllOrdersSeller,
   updateOrderStatus,
   createSale,
 };

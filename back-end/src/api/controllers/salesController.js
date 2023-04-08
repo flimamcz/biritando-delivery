@@ -7,9 +7,15 @@ const getSaleProducts = async (req, res) => {
   return res.status(200).json(products);
 };
 
-const getAllOrders = async (req, res) => {
+const getAllOrdersSeller = async (req, res) => {
   const { id } = req.params;
-  const products = await salesService.getAllOrders(id);
+  const products = await salesService.getAllOrdersSeller(id);
+  return res.status(200).json(products);
+};
+
+const getAllOrdersCustomer = async (req, res) => {
+  const { id } = req.params;
+  const products = await salesService.getAllOrdersCustomer(id);
   return res.status(200).json(products);
 };
 
@@ -33,7 +39,8 @@ const updateOrderStatus = async (req, res) => {
 };
 
 module.exports = { getSaleProducts,
-  getAllOrders,
+  getAllOrdersSeller,
+  getAllOrdersCustomer,
   updateOrderStatus,
   getOrderById,
   createSale,
