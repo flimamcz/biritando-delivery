@@ -1,11 +1,12 @@
-const { Sales, Product } = require('../../database/models');
+const { Sales, Products, Users } = require('../../database/models');
+const usersService = require('./usersService');
 
 const getSaleProducts = async (id) => {  
   const sale = await Sales.findAll(
     {
       where: { id },
       include: [{
-          model: Product,
+          model: Products,
           as: 'products',
           through: { attributes: ['quantity'] },
         }],
@@ -20,4 +21,47 @@ const getSaleProducts = async (id) => {
   return result;
 };
 
-module.exports = { getSaleProducts };
+const getOrderById = async (id) => {  
+  const sale = await Sales.findOne(
+    {
+      where: { id },
+      include: [
+        {
+          model: Users,
+          as: 'customer',
+          attributes: { exclude: ['id', 'password', 'email', 'role'] },
+        },
+        {
+          model: Users,
+          as: 'seller',
+          attributes: { exclude: ['id', 'password', 'email', 'role'] },
+        },
+      ],
+    },
+);
+  return sale;
+};
+
+const getAllOrders = async (id) => {
+  const orders = Sales.findAll({ where: { sellerId: id } });
+  return orders;
+};
+
+const createSale = async (saleInfo, email) => {
+  const { id } = await usersService.getUserByEmail(email);
+  const sale = await Sales.create({ ...saleInfo, userId: id });
+  return sale;
+};
+
+const updateOrderStatus = async (newStatus, id) => {
+  const orders = await Sales.update({ status: newStatus }, { where: { id } }); 
+  return orders;
+};
+
+module.exports = {
+  getSaleProducts,
+  getOrderById,
+  getAllOrders,
+  updateOrderStatus,
+  createSale,
+};
