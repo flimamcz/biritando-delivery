@@ -10,14 +10,14 @@ const SalesProductsModel = (sequelize, DataTypes) => {
     { underscored: true, timestamps: false, tableName: "sales_products" }
   );
 
-  SalesProducts.associate = ({ Product, Sales }) => {
-    Sales.belongsToMany(Product, {
+  SalesProducts.associate = ({ Products, Sales }) => {
+    Sales.belongsToMany(Products, {
       as: "products",
       through: SalesProducts,
       foreignKey: "saleId",
       otherKey: "productId",
     });
-    Product.belongsToMany(Sales, {
+    Products.belongsToMany(Sales, {
       as: "sales",
       through: SalesProducts,
       foreignKey: "productId",

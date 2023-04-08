@@ -1,14 +1,14 @@
 const express = require('express');
 const productsController = require('../controllers/productsController');
-const sellerController = require('../controllers/sellerController');
+const salesController = require('../controllers/salesController');
 
 const customerRouter = express.Router();
 
 customerRouter.get('/products', productsController.getAllProducts);
-customerRouter.get('/orders/user/:id', productsController.getAllOrders);
-customerRouter.get('/orders/:id', productsController.getById);
-customerRouter.post('/orders', productsController.createSale);
 customerRouter.post('/products', productsController.createProductsSale);
-customerRouter.put('/orders/:id', sellerController.updateOrderStatus);
+customerRouter.get('/orders/user/:id', salesController.getAllOrdersCustomer);
+customerRouter.get('/orders/:id', salesController.getOrderById);
+customerRouter.put('/orders/:id', salesController.updateOrderStatus);
+customerRouter.post('/orders', salesController.createSale);
 
 module.exports = customerRouter;

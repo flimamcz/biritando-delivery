@@ -1,16 +1,12 @@
 const express = require('express');
-const sellerController = require('../controllers/sellerController');
-// const tokenValidation = require('../middlewares/authMiddleware');
+const usersController = require('../controllers/usersController');
+const salesController = require('../controllers/salesController');
 
 const sellerRouter = express.Router();
 
-sellerRouter.get('/orders/user/:id', sellerController.getAllOrders);
-sellerRouter.get('/orders/:id', sellerController.getById);
-sellerRouter.get(
-'/',
-// tokenValidation,
-sellerController.getAll,
-);
-sellerRouter.put('/orders/:id', sellerController.updateOrderStatus);
+sellerRouter.get('/orders/user/:id', salesController.getAllOrdersSeller);
+sellerRouter.get('/orders/:id', salesController.getOrderById);
+sellerRouter.put('/orders/:id', salesController.updateOrderStatus);
+sellerRouter.get('/', usersController.getAllSellers);
 
 module.exports = sellerRouter;
