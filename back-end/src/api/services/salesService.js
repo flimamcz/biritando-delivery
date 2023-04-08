@@ -12,7 +12,9 @@ const getSaleProducts = async (id) => {
         }],
     },
   );
+
   if (sale.length === 0) return { type: 'NOT_FOUND', message: 'Sale not found' };
+
   const { products, totalPrice } = sale[0];
   const result = {
     products,

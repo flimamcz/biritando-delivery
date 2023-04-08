@@ -1,6 +1,6 @@
 const UserModel = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
+  const Users = sequelize.define(
+    "Users",
     {
       id: {
         allowNull: false,
@@ -32,12 +32,12 @@ const UserModel = (sequelize, DataTypes) => {
     { timestamps: false, tableName: 'users', }
   );
 
-  User.associate = ({ Sales }) => {
-    User.hasMany(Sales, { foreignKey: 'userId', as: 'customer'  });
-    User.hasMany(Sales, { foreignKey: 'sellerId', as: 'seller' });
+  Users.associate = ({ Sales }) => {
+    Users.hasMany(Sales, { foreignKey: 'userId', as: 'customer'  });
+    Users.hasMany(Sales, { foreignKey: 'sellerId', as: 'seller' });
   };
 
-  return User;
+  return Users;
 };
 
 module.exports = UserModel;

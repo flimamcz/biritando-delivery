@@ -55,9 +55,9 @@ const SalesModel = (sequelize, DataTypes) => {
     { underscored: true, timestamps: false, tableName: 'sales' }
   );
 
-  Sales.associate = ({ User }) => {
-    Sales.belongsTo(User, { foreignKey: 'userId', as: 'customer' })
-    Sales.belongsTo(User, { foreignKey: 'sellerId', as: 'seller' });
+  Sales.associate = ({ Users }) => {
+    Sales.belongsTo(Users, { foreignKey: 'userId', as: 'customer' })
+    Sales.belongsTo(Users, { foreignKey: 'sellerId', as: 'seller' });
   };
 
   return Sales;

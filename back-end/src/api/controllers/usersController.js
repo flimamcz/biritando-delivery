@@ -11,6 +11,7 @@ const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   const newRegistro = await usersService.register(name, email, password);
+
   if (newRegistro.status) {
     return res.status(newRegistro.status).json({ message: newRegistro.message });
   }

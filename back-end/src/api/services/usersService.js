@@ -6,13 +6,12 @@ const auth = require('../auth/authService');
 
 const getUserByEmail = async (email) => {
   const user = await Users.findOne({ where: { email } });
-
   return user;
 };
 
 const newLogin = async (email, password) => {  
   const passwordHash = md5(password);
-  const user = await this.getUserByEmail(email);
+  const user = await getUserByEmail(email);
   
   if (!user || user.password !== passwordHash) {
     return { type: 'INVALID_FIELDS', message: 'Invalid fields' }; 
@@ -35,7 +34,6 @@ const newLogin = async (email, password) => {
 
 const getUserByName = async (name) => {
   const user = await Users.findOne({ where: { name } });
-
   return user;
 };
 
@@ -88,4 +86,6 @@ module.exports = {
   deleteUser,
   newLogin,
   getAllSellers,
+  getUserByEmail,
+  getUserByName,
 };
