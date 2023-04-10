@@ -6,8 +6,8 @@ import { requestPost } from '../services/request';
 export default function AdminForm() {
   const {
     handleChange, formsInfo,
-    isRegisterDisabled, setFormsInfo,
-    isLogged,
+    isRegisterDisabled, resetInputs,
+    isLogged, getUsers,
   } = useContext(MyContext);
 
   const [failedRequest, setFailedRequest] = useState(false);
@@ -30,40 +30,20 @@ export default function AdminForm() {
         },
       };
       await requestPost('/admin/manage', dataUser, headers);
-      setFormsInfo({
-        loginEmailInput: '',
-        loginPasswordInput: '',
-        registerNameInput: '',
-        registerEmailInput: '',
-        registerPasswordInput: '',
-        registerRoleInput: 'customer',
-      });
+      resetInputs();
+      getUsers();
       setFailedRequest(false);
       setSucessRequest(true);
     } catch (error) {
-      setFormsInfo({
-        loginEmailInput: '',
-        loginPasswordInput: '',
-        registerNameInput: '',
-        registerEmailInput: '',
-        registerPasswordInput: '',
-        registerRoleInput: 'customer',
-      });
+      resetInputs();
       setSucessRequest(false);
       setFailedRequest(true);
     }
   };
 
   useEffect(() => {
-    setFormsInfo({
-      loginEmailInput: '',
-      loginPasswordInput: '',
-      registerNameInput: '',
-      registerEmailInput: '',
-      registerPasswordInput: '',
-      registerRoleInput: 'customer',
-    });
-  }, []);
+    resetInputs();
+  }, [resetInputs]);
 
   try {
     const { role } = JSON.parse(localStorage.getItem('user'));

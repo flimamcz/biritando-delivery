@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
+import { convertTotal } from '../utils/formatValues';
 
 function OrderDetailsTable(props) {
   const { type } = props;
@@ -9,11 +10,6 @@ function OrderDetailsTable(props) {
 
   const [productsList, setProductsList] = useState([]);
   const [total, setTotal] = useState([]);
-
-  const convertTotal = (num) => {
-    const totalNumber = Number(num);
-    return totalNumber.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-  };
 
   const getOrder = useCallback(async () => {
     try {

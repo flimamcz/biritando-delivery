@@ -1,22 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import moment from 'moment/moment';
+import { addZerosOnRightSide, convertDate, convertTotal } from '../utils/formatValues';
 
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
-  const addZerosOnRightSide = (num) => {
-    const Numberzeros = 4;
-    const newNum = String(num).padStart(Numberzeros, '0');
-    return newNum;
-  };
-
-  const convertDate = (data) => moment(data).format('DD/MM/YYYY');
-
-  const convertTotal = (total) => {
-    const totalNumber = Number(total);
-    return totalNumber.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-  };
-
   return (
     <li key={ id }>
       <Link to={ `/${prop}/orders/${id}` }>

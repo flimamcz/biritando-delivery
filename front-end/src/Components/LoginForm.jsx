@@ -7,21 +7,14 @@ function LoginForm() {
     handleChange, login,
     formsInfo, failedTryLogin,
     isLogged, isLoginDisabled,
-    setFormsInfo,
+    resetInputs,
   } = useContext(MyContext);
 
   const history = useHistory();
 
   useEffect(() => {
-    setFormsInfo({
-      loginEmailInput: '',
-      loginPasswordInput: '',
-      registerNameInput: '',
-      registerEmailInput: '',
-      registerPasswordInput: '',
-      role: '',
-    });
-  }, [setFormsInfo, isLogged]);
+    resetInputs();
+  }, [resetInputs]);
 
   const { loginEmailInput, loginPasswordInput } = formsInfo;
 

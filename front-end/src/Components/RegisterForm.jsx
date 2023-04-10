@@ -5,7 +5,7 @@ import MyContext from '../context/MyContext';
 export default function RegisterForm() {
   const {
     handleChange, formsInfo,
-    isRegisterDisabled, setFormsInfo,
+    isRegisterDisabled, resetInputs,
     register, failedTryRegister, isLogged,
   } = useContext(MyContext);
 
@@ -16,15 +16,8 @@ export default function RegisterForm() {
   };
 
   useEffect(() => {
-    setFormsInfo({
-      loginEmailInput: '',
-      loginPasswordInput: '',
-      registerNameInput: '',
-      registerEmailInput: '',
-      registerPasswordInput: '',
-      role: '',
-    });
-  }, [setFormsInfo]);
+    resetInputs();
+  }, [resetInputs]);
 
   if (isLogged) {
     return <Redirect to="/customer/products" />;

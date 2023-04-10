@@ -1,27 +1,18 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useContext } from 'react';
 import NavBar from '../Components/NavBar';
 import OrderCard from '../Components/OrderCard';
 import { navBarCustomer, navBarSeller } from '../utils/navBarinfo';
-import { requestGet } from '../services/request';
+import MyContext from '../context/MyContext';
 
 function Order() {
   const { role } = JSON.parse(localStorage.getItem('user'));
   const { userId } = JSON.parse(localStorage.getItem('userId'));
   const typeNav = role === 'seller' ? navBarSeller : navBarCustomer;
-  const [ordersLists, setOrdersLists] = useState([]);
-
-  const getOrders = useCallback(async () => {
-    try {
-      const orders = await requestGet(`/${role}/orders/user/${userId}`);
-      setOrdersLists(orders);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
+  const { getOrders, ordersLists } = useContext(MyContext);
 
   useEffect(() => {
-    getOrders();
-  }, [getOrders]);
+    getOrders(role, userId);
+  }, [getOrders, role, userId]);
 
   return (
     <div>

@@ -1,21 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { requestGet, requestDelete } from '../services/request';
+import React, { useCallback, useContext } from 'react';
+import { requestDelete } from '../services/request';
+import MyContext from '../context/MyContext';
 
 function UsersTable() {
-  const [usersList, setUsersList] = useState([]);
-
-  const getUsers = useCallback(async () => {
-    try {
-      const users = await requestGet('/user');
-      setUsersList(users);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
-
-  useEffect(() => {
-    getUsers();
-  }, [usersList]);
+  const { getUsers, usersList } = useContext(MyContext);
 
   const removeUser = useCallback(async (id) => {
     try {
@@ -24,7 +12,7 @@ function UsersTable() {
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  }, [getUsers]);
 
   return (
     <div>
@@ -62,6 +50,7 @@ function UsersTable() {
                   <button
                     data-testid={ `admin_manage__element-user-table-remove-${index}` }
                     type="button"
+                    disabled={ id === 1 }
                     onClick={ () => removeUser(id) }
                   >
                     Excluir

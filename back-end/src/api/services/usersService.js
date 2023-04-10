@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
-const { Op } = require('sequelize');
 const { Users } = require('../../database/models');
 const auth = require('../auth/authService');
 
@@ -65,8 +64,7 @@ const register = async (name, email, password, role = 'customer') => {
 };
 
 const getAllUsers = async () => {
-  const users = await Users.findAll({ where: { 
-    [Op.or]: [{ role: 'customer' }, { role: 'seller' }] } });
+  const users = await Users.findAll({});
   return users;
 };
 

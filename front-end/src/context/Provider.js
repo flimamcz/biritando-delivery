@@ -6,8 +6,14 @@ import { setToken, requestGet, requestPost }
 import MyContext from './MyContext';
 
 function Provider({ children }) {
-  const [isLogged, setIsLogged] = useState(false);
   const [productsData, setProductsData] = useState([{}]);
+  const [ordersLists, setOrdersLists] = useState([]);
+  const [usersList, setUsersList] = useState([]);
+  const [sellers, setSellers] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [saleInfo, setSaleInfo] = useState([]);
+
+  const [isLogged, setIsLogged] = useState(false);
   const [isLoginDisabled, toggleLoginButton] = useState(true);
   const [isRegisterDisabled, toggleRegisterButton] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -21,6 +27,16 @@ function Provider({ children }) {
     role: '',
   });
   const history = useHistory();
+
+  // --------- inputs ----------- //
+  const handleChange = useCallback(
+    ({ target }) => {
+      const auxValues = { ...formsInfo };
+      auxValues[target.name] = target.value;
+      setFormsInfo(auxValues);
+    },
+    [formsInfo],
+  );
 
   const validateLoginInputs = useCallback(() => {
     const { loginEmailInput, loginPasswordInput } = formsInfo;
@@ -42,24 +58,18 @@ function Provider({ children }) {
     toggleRegisterButton(!(verifyEmail && verifyUser && verifyName));
   }, [formsInfo]);
 
-  const getProducts = useCallback(async () => {
-    try {
-      const productsList = await requestGet('/customer/products');
-      setProductsData(productsList);
-    } catch (error) {
-      console.log(error.message);
-    }
+  const resetInputs = useCallback(() => {
+    setFormsInfo({
+      loginEmailInput: '',
+      loginPasswordInput: '',
+      registerNameInput: '',
+      registerEmailInput: '',
+      registerPasswordInput: '',
+      registerRoleInput: 'customer',
+    });
   }, []);
 
-  const handleChange = useCallback(
-    ({ target }) => {
-      const auxValues = { ...formsInfo };
-      auxValues[target.name] = target.value;
-      setFormsInfo(auxValues);
-    },
-    [formsInfo],
-  );
-
+  // --------- login, cadastro e logout ----------- //
   const login = useCallback(async (event, info) => {
     event.preventDefault();
     try {
@@ -97,15 +107,44 @@ function Provider({ children }) {
     }
   }, []);
 
-  useEffect(() => {
-    validateLoginInputs();
-    validateRegisterInputs();
-  }, [validateLoginInputs, validateRegisterInputs]);
+  // --------- request ----------- //
+  const getProducts = useCallback(async () => {
+    try {
+      const productsList = await requestGet('/customer/products');
+      setProductsData(productsList);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
 
-  useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+  const getOrders = useCallback(async (role, userId) => {
+    try {
+      const orders = await requestGet(`/${role}/orders/user/${userId}`);
+      setOrdersLists(orders);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
 
+  const getUsers = useCallback(async () => {
+    try {
+      const users = await requestGet('/user');
+      setUsersList(users);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
+  const getSellers = useCallback(async () => {
+    try {
+      const seller = await requestGet('/seller');
+      setSellers(seller);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
+
+  // --------- validação ----------- //
   const verifyLogin = useCallback(() => {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
@@ -119,47 +158,81 @@ function Provider({ children }) {
     } catch (error) {
       setIsLogged(false);
     }
-  }, []);
+  }, [history]);
+
+  // --------- useEffects ----------- //
+  useEffect(() => {
+    validateLoginInputs();
+    validateRegisterInputs();
+  }, [validateLoginInputs, validateRegisterInputs]);
+
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
 
   useEffect(() => {
     verifyLogin();
-  }, []);
+  }, [verifyLogin]);
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
 
   const contextValue = useMemo(
     () => ({
       handleChange,
-      formsInfo,
       setFormsInfo,
+      setSaleInfo,
+      resetInputs,
+      getProducts,
+      getOrders,
+      getUsers,
+      getSellers,
+      setCartItems,
       login,
+      setIsLogged,
+      register,
+      verifyLogin,
       logOut,
+      formsInfo,
+      saleInfo,
       isLogged,
-      failedTryLogin,
+      productsData,
+      ordersLists,
+      usersList,
+      sellers,
+      cartItems,
       isLoginDisabled,
       isRegisterDisabled,
-      toggleLoginButton,
-      toggleRegisterButton,
-      productsData,
-      getProducts,
-      setIsLogged,
-      verifyLogin,
-      register,
+      failedTryLogin,
       failedTryRegister,
     }),
     [
       handleChange,
-      formsInfo,
       setFormsInfo,
+      setSaleInfo,
+      resetInputs,
+      getProducts,
+      getOrders,
+      getUsers,
+      getSellers,
+      setCartItems,
       login,
+      setIsLogged,
+      register,
+      verifyLogin,
       logOut,
+      formsInfo,
+      saleInfo,
       isLogged,
-      failedTryLogin,
+      productsData,
+      ordersLists,
+      usersList,
+      sellers,
+      cartItems,
       isLoginDisabled,
       isRegisterDisabled,
-      productsData,
-      getProducts,
-      setIsLogged,
-      verifyLogin,
-      register,
+      failedTryLogin,
       failedTryRegister,
     ],
   );

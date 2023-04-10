@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment/moment';
 import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
 import StatusButton from './StatusButton';
+import { addZerosOnRightSide, convertDate } from '../utils/formatValues';
 
 function OrderDetailsHeader(props) {
   const { type } = props;
@@ -29,14 +29,6 @@ function OrderDetailsHeader(props) {
   }, [getOrder]);
 
   const { saleDate, status, seller } = orderList;
-
-  const addZerosOnRightSide = (num) => {
-    const Numberzeros = 4;
-    const newNum = String(num).padStart(Numberzeros, '0');
-    return newNum;
-  };
-
-  const convertDate = (data) => moment(data).format('DD/MM/YYYY');
 
   return (
     <div>
