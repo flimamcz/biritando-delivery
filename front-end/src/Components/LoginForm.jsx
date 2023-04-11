@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
+import '../styles/login.css';
 
 function LoginForm() {
   const {
@@ -29,64 +30,67 @@ function LoginForm() {
   }
 
   return (
-    <form>
-      <label htmlFor="email-input">
-        Login
-        <input
-          type="email"
-          name="loginEmailInput"
-          id="email-input"
-          onChange={ handleChange }
-          data-testid="common_login__input-email"
-        />
-      </label>
-      <label htmlFor="password-input">
-        Password
-        <input
-          type="password"
-          name="loginPasswordInput"
-          id="password-input"
-          onChange={ handleChange }
-          data-testid="common_login__input-password"
-        />
-      </label>
-      {
-        (failedTryLogin)
-          ? (
-            <p data-testid="common_login__element-invalid-email">
-              {
-                `O endereço de e-mail ou a senha não estão corretos.
-              Por favor, tente novamente.`
-              }
-            </p>
-          )
-          : null
-      }
-      <button
-        type="submit"
-        disabled={ isLoginDisabled }
-        onClick={ (event) => login(event, {
-          email: loginEmailInput,
-          password: loginPasswordInput,
-        }) }
-        data-testid="common_login__button-login"
-      >
-        LOGIN
-      </button>
-      <button
-        type="button"
-        id="register-btn"
-        onClick={ () => history.push('/register') }
-        data-testid="common_login__button-register"
-      >
-        Ainda não tenho conta
-      </button>
-      <ul>
-        <li> adm@deliveryapp.com | --adm2@21!!-- </li>
-        <li> fulana@deliveryapp.com | fulana@123 </li>
-        <li> zebirita@email.com | $#zebirita#$ </li>
-      </ul>
-    </form>
+    <main className="main-login">
+      <section className="left-login">
+        <h1>Faça o seu Login!</h1>
+      </section>
+      <section className="right-login">
+        <form className="card-login">
+          <h1>Login</h1>
+          <label htmlFor="email-input" className="text-field">
+            <h4>Email:</h4>
+            <input
+              placeholder="exemplo@email.com"
+              type="email"
+              name="loginEmailInput"
+              id="email-input"
+              onChange={ handleChange }
+              data-testid="common_login__input-email"
+            />
+          </label>
+          <label htmlFor="password-input" className="text-field">
+            <h4>Senha:</h4>
+            <input
+              placeholder="sua senha"
+              type="password"
+              name="loginPasswordInput"
+              id="password-input"
+              onChange={ handleChange }
+              data-testid="common_login__input-password"
+            />
+          </label>
+          {
+            failedTryLogin
+              && (
+                <p data-testid="common_login__element-invalid-email">
+                  e-mail ou a senha incorretos.
+                </p>
+              )
+          }
+          <button
+            type="submit"
+            disabled={ isLoginDisabled }
+            onClick={ (event) => login(event, {
+              email: loginEmailInput,
+              password: loginPasswordInput,
+            }) }
+            data-testid="common_login__button-login"
+            className="btn-login"
+          >
+            LOGIN
+          </button>
+          <button
+            type="button"
+            id="register-btn"
+            onClick={ () => history.push('/register') }
+            data-testid="common_login__button-register"
+            className="btn-register"
+          >
+            Ainda não tenho cadastro
+          </button>
+        </form>
+      </section>
+    </main>
   );
 }
 
