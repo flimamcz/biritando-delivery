@@ -32,6 +32,7 @@ export default function RegisterForm() {
       <section className="right-login">
         <img src={ logo } alt="logo imagem" />
         <form className="card-login">
+          <h1>Register</h1>
           <label htmlFor="name" className="text-field">
             <h4>Nome:</h4>
             <input
