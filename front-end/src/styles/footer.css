@@ -1,0 +1,9 @@
+.footer_content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer_links {
+  display: flex;
+}
