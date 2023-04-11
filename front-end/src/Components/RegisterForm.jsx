@@ -44,7 +44,7 @@ export default function RegisterForm() {
           </label>
 
           <label htmlFor="email" className="text-field">
-            <h4>email:</h4>
+            <h4>Email:</h4>
             <input
               type="text"
               name="registerEmailInput"
@@ -55,7 +55,7 @@ export default function RegisterForm() {
           </label>
 
           <label htmlFor="password" className="text-field">
-            <h4>senha:</h4>
+            <h4>Senha:</h4>
             <input
               type="password"
               name="registerPasswordInput"
