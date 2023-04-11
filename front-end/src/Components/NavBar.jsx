@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import '../styles/navbar.css';
 import avatar from '../images/avatar.svg';
+import logo from '../images/logo.svg';
 
 function NavBar({ type }) {
   const [username, setUsername] = useState('');
@@ -20,7 +21,7 @@ function NavBar({ type }) {
 
   return (
     <header>
-      <img className="logo" alt="logo" />
+      <img src={ logo } className="logo" alt="logo" />
       <nav>
         <ul className="nav_links">
           {type.map(({ name, link, testId }, i) => (

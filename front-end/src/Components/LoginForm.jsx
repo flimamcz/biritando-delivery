@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import '../styles/login.css';
+import logo from '../images/logoTexto.svg';
 
 function LoginForm() {
   const {
@@ -31,10 +32,8 @@ function LoginForm() {
 
   return (
     <main className="main-login">
-      <section className="left-login">
-        <h1>Faça o seu Login!</h1>
-      </section>
       <section className="right-login">
+        <img src={ logo } alt="logo imagem" />
         <form className="card-login">
           <h1>Login</h1>
           <label htmlFor="email-input" className="text-field">
