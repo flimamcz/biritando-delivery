@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import '../styles/login.css';
+import logo from '../images/logoTexto.svg';
 
 export default function RegisterForm() {
   const {
@@ -28,10 +29,8 @@ export default function RegisterForm() {
 
   return (
     <main className="main-login">
-      <section className="left-login">
-        <h1>Cadastre-se</h1>
-      </section>
       <section className="right-login">
+        <img src={ logo } alt="logo imagem" />
         <form className="card-login">
           <label htmlFor="name" className="text-field">
             <h4>Nome:</h4>
