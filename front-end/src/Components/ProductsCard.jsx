@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { getCartItems, setCartItems } from '../utils/cartLocalStorage';
+import '../styles/ProductCard.css';
 
 export default class ProductsCard extends Component {
   state = {
@@ -24,7 +25,8 @@ export default class ProductsCard extends Component {
       urlImage,
       name,
       id,
-      quantity };
+      quantity,
+    };
 
     const cartItems = getCartItems();
     const newProductIndex = cartItems.findIndex((p) => p.id === id);
@@ -53,12 +55,16 @@ export default class ProductsCard extends Component {
 
   handleClick = (qty, { target: { name } }) => {
     switch (name) {
-    case 'increase': this.setState({ quantity: qty + 1 }, () => this.updateCartItems());
+    case 'increase':
+      this.setState({ quantity: qty + 1 }, () => this.updateCartItems());
       break;
-    case 'decrease': if (qty > 0) {
-      this.setState({ quantity: qty - 1 }, () => this.updateCartItems());
-    } break;
-    default: this.updateCartItems();
+    case 'decrease':
+      if (qty > 0) {
+        this.setState({ quantity: qty - 1 }, () => this.updateCartItems());
+      }
+      break;
+    default:
+      this.updateCartItems();
     }
   };
 
@@ -70,18 +76,26 @@ export default class ProductsCard extends Component {
     const { quantity } = this.state;
     const { id, price, urlImage, name } = this.props;
     return (
-      <li>
+      <li className="card-product">
         <img
-          width="100px"
+          width="150px"
           src={ urlImage }
           alt={ `${name}-img` }
           data-testid={ `customer_products__img-card-bg-image-${id}` }
         />
-        <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
-        <p data-testid={ `customer_products__element-card-price-${id}` }>
+        <p
+          data-testid={ `customer_products__element-card-title-${id}` }
+          className="name-product"
+        >
+          {name}
+        </p>
+        <p
+          data-testid={ `customer_products__element-card-price-${id}` }
+          className="price-product"
+        >
           {Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
         </p>
-        <div>
+        <div className="section-buttons-input">
           <button
             type="button"
             name="decrease"

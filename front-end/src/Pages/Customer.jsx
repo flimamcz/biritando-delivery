@@ -1,10 +1,10 @@
-/* eslint-disable quotes */
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ProductCard from '../Components/ProductsCard';
 import MyContext from '../context/MyContext';
 import { navBarCustomer } from '../utils/navBarinfo';
 import Navbar from '../Components/NavBar';
+import '../styles/ProductCard.css';
 
 export default function Customer() {
   const { productsData } = useContext(MyContext);
@@ -15,7 +15,7 @@ export default function Customer() {
   return (
     <div>
       <Navbar type={ navBarCustomer } />
-      <ul>
+      <ul className="product-container">
         {productsData?.map(({ id, name, price, urlImage }, i) => (
           <ProductCard
             key={ i }
@@ -32,11 +32,12 @@ export default function Customer() {
         onClick={ () => history.push('/customer/checkout') }
         disabled={ totalPrice === '0,00' }
         data-testid="customer_products__button-cart"
+        className="view-cart-button"
       >
-        <p>
-          Ver Carrinho&nbsp;
-          <span data-testid="customer_products__checkout-bottom-value">{totalPrice}</span>
-        </p>
+        <p>Ver Carrinho</p>
+        <span data-testid="customer_products__checkout-bottom-value">
+          {totalPrice}
+        </span>
       </button>
     </div>
   );
