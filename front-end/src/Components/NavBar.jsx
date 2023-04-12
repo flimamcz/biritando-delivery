@@ -21,39 +21,42 @@ function NavBar({ type }) {
 
   return (
     <header>
-      <img src={ logo } className="logo" alt="logo" />
-      <nav>
-        <ul className="nav_links">
-          {type.map(({ name, link, testId }, i) => (
-            <li key={ i }>
-              <Link
-                to={ link }
-                data-testid={ `customer_products__element-navbar-link-${testId}` }
-              >
-                {name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="button_name">
-        <div className="profile">
-          <img src={ avatar } alt="profile icon" />
-          <h3 data-testid="customer_products__element-navbar-user-full-name">
+      <img className="logo" src={ logo } alt="logo" width={ 100 } />
+      <div className="links_section">
+        {type.map(({ name, link, testId }, i) => (
+          <div key={ i }>
+            <Link
+              to={ link }
+              data-testid={ `customer_products__element-navbar-link-${testId}` }
+            >
+              {name}
+            </Link>
+          </div>
+        ))}
+      </div>
+      <div className="user_section">
+        <div className="profile_container">
+          <img className="profile_icon" src={ avatar } alt="profile icon" />
+          <h3
+            className="profile_text"
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
             {username}
           </h3>
         </div>
-        <button
-          className="nav_button"
-          data-testid="customer_products__element-navbar-link-logout"
-          type="button"
-          onClick={ () => {
-            logOut();
-            history.push('/login');
-          } }
-        >
-          Sair
-        </button>
+        <div>
+          <button
+            className="nav_button"
+            data-testid="customer_products__element-navbar-link-logout"
+            type="button"
+            onClick={ () => {
+              logOut();
+              history.push('/login');
+            } }
+          >
+            Sair
+          </button>
+        </div>
       </div>
     </header>
   );

@@ -3,6 +3,12 @@
   padding: 0;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-login {
   align-content: center;
   align-items: center;
@@ -10,19 +16,13 @@
   background-position: bottom;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 95vh;
   justify-content: center;
-  width: 100vw;
 }
 
-.left-login > h1 {
-  color: #f9cb00;
-  font-size: 3vw;
-  margin-bottom: 20px;
-}
-
-.login-img {
-  width: 35vw;
+.login_logo {
+  position: relative;
+  bottom: 2em;
 }
 
 .card-login {
@@ -34,6 +34,8 @@
   flex-direction: column;
   justify-content: center;
   padding: 30px 35px;
+  min-width: 500px;
+  margin-bottom: 100px;
 }
 
 .card-login > h1 {

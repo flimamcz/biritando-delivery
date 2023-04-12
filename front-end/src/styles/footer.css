@@ -1,9 +1,17 @@
-.footer_content {
-  align-items: center;
+.footer_container {
   display: flex;
-  justify-content: space-between;
+  background-color: #ffd428;
+  justify-content: space-evenly;
+  box-shadow: 0 3px 10px #915e00;
+  height: 5vh;
 }
 
 .footer_links {
   display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer_links a {
+  color: #202020;
 }
