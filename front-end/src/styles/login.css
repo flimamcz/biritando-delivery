@@ -12,6 +12,8 @@ body {
   align-content: center;
   align-items: center;
   background: url('../images/wave.svg') no-repeat center;
+  height: 95vh;
+  background-size: cover;
   background-position: bottom;
   display: flex;
   flex-direction: column;
