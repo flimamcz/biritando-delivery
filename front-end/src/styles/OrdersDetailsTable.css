@@ -1,0 +1,57 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: Segoe UI , sans-serif;
+  justify-content: center;
+  margin: 64px auto;
+  row-gap: 20px;
+  width: 81%;
+}
+
+.container-table {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.content-tr {
+  display: flex;
+  justify-content: left;
+  padding: 10px;
+}
+
+.content-tr th + th {
+  margin-left: 250px;
+}
+
+.content-tr-tbody {
+  align-items: center;
+  display: flex;
+  justify-content: left;
+  padding: 10px;
+}
+
+.content-tr-tbody td {
+  align-self: center;
+  border-bottom: 2px solid #b6c468;
+  margin: 0 auto;
+  padding: 20px 10px;
+  width: 20%;
+}
+
+.total-price {
+  background-color: #f3bb02;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+  cursor: default;
+  padding: 15px;
+}
+
+/* .total-price:hover {
+  background-color: #92ac02;
+  cursor: pointer;
+  transform: scale(1.02);
+} */

@@ -24,7 +24,6 @@ function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) 
           {
             convertTotal(totalPrice)
           }
-
         </p>
         {
           prop === 'customer' && (
