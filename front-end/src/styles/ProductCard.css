@@ -9,14 +9,14 @@
   width: 80%;
 }
 
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+input[ type = 'number' ]::-webkit-inner-spin-button {
+  appearance: none;
 }
 
-input {
-  -moz-appearance: textfield;
+input[ type = 'number' ] {
   appearance: textfield;
 }
+
 
 .card-product {
   align-items: center;
