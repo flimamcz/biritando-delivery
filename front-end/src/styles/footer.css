@@ -1,14 +1,14 @@
 .footer_container {
-  display: flex;
   background-color: #ffd428;
-  justify-content: space-evenly;
   box-shadow: 0 3px 10px #915e00;
+  display: flex;
   height: 5vh;
+  justify-content: space-evenly;
 }
 
 .footer_links {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 10px;
 }
 
