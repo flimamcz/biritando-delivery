@@ -1,6 +1,7 @@
 {
   "plugins": ["stylelint-order"],
   "rules": {
+    
     "at-rule-empty-line-before": "always",
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",
@@ -85,7 +86,7 @@
     "order/properties-alphabetical-order": true,
     "property-case": "lower",
     "property-no-unknown": true,
-    "property-no-vendor-prefix": true,
+    "property-no-vendor-prefix": null,
     "rule-empty-line-before": [
       "always",
       {
