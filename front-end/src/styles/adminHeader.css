@@ -52,14 +52,14 @@ input, select, button {
   cursor: default;
 }
 
-h2 {
+.adm-titles {
   color: #272626;
   font-weight: 800;
   margin-bottom: 0.8em;
   text-transform: uppercase;
 }
 
-p {
+.error-msg {
   color: #f9cb00;
   font-weight: 1000;
   margin-top: 1.2em;

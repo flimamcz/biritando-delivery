@@ -18,7 +18,7 @@ function UsersTable() {
 
   return (
     <div>
-      <h2>Lista de usuários:</h2>
+      <h2 className="adm-titles">Lista de usuários:</h2>
       <table className="usersTable">
         <thead>
           <tr>

@@ -57,7 +57,7 @@ export default function AdminForm() {
 
   return (
     <div className="form-Container">
-      <h2>Cadastrar novo usuário:</h2>
+      <h2 className="adm-titles">Cadastrar novo usuário:</h2>
       <form className="campo">
         <label htmlFor="name">
           Nome:
@@ -120,13 +120,19 @@ export default function AdminForm() {
         </button>
       </form>
       {failedRequest && (
-        <p data-testid="admin_manage__element-invalid-register">
+        <p
+          data-testid="admin_manage__element-invalid-register"
+          className="error-msg"
+        >
           Erro ao realizar cadastro!
         </p>
       )}
       {
         sucessRequest && (
-          <p data-testid="admin_manage__element-valid-register">
+          <p
+            data-testid="admin_manage__element-valid-register"
+            className="error-msg"
+          >
             Usuário cadastro com sucesso!
           </p>
         )
