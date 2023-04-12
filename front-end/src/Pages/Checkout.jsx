@@ -1,3 +1,4 @@
+import '../styles/checkout.css';
 import React from 'react';
 import { navBarCustomer } from '../utils/navBarinfo';
 import Navbar from '../Components/NavBar';
@@ -8,8 +9,10 @@ function Checkout() {
   return (
     <div>
       <Navbar type={ navBarCustomer } />
-      <CheckoutTable />
-      <CheckoutForm />
+      <div className="checkout_container">
+        <CheckoutTable />
+        <CheckoutForm />
+      </div>
     </div>
   );
 }

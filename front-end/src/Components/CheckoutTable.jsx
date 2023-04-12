@@ -1,4 +1,7 @@
+import '../styles/checkout.css';
 import React, { useContext, useEffect, useState } from 'react';
+import trash from '../images/trash.svg';
+import sadface from '../images/sadface.svg';
 import { convertTotal } from '../utils/formatValues';
 import MyContext from '../context/MyContext';
 
@@ -43,21 +46,21 @@ function Checkout() {
   }, [totalPrice]);
 
   return (
-    <div>
-      <h1>Finalizar pedido</h1>
+    <div className="checkout_table_container">
+      <h1 className="checkout_title">Finalizar pedido</h1>
       {cartItems.length ? (
         <>
           <table>
-            <thead>
-              <tr>
+            <thead className="checkout_table_header_container">
+              <tr className="checkout_table_header">
                 {titlesTable && titlesTable.map((title, index) => (
                   <th key={ index }>{title}</th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="checkout_table_body">
               {cartItems ? cartItems.map((item, index) => (
-                <tr key={ item.id }>
+                <tr className="checkout_table_body_info" key={ item.id }>
                   <td
                     data-testid={
                       `customer_checkout__element-order-table-item-number-${index}`
@@ -77,7 +80,7 @@ function Checkout() {
                       `customer_checkout__element-order-table-quantity-${index}`
                     }
                   >
-                    {item.quantity}
+                    {`${item.quantity} x`}
 
                   </td>
                   <td
@@ -86,7 +89,7 @@ function Checkout() {
                     }
                   >
                     {
-                      convertTotal(item.price)
+                      `R$${convertTotal(item.price)}`
                     }
 
                   </td>
@@ -95,18 +98,18 @@ function Checkout() {
                       `customer_checkout__element-order-table-sub-total-${index}`
                     }
                   >
-                    {convertTotal(item.price * item.quantity)}
-
+                    {`R$${convertTotal(item.price * item.quantity)}`}
                   </td>
                   <td>
                     <button
+                      className="checkout_remove_button"
                       type="button"
                       data-testid={
                         `customer_checkout__element-order-table-remove-${index}`
                       }
                       onClick={ () => handleClick(item) }
                     >
-                      Remover
+                      <img src={ trash } alt="botão para remover item do pedido" />
                     </button>
                   </td>
                 </tr>
@@ -114,14 +117,21 @@ function Checkout() {
               )) : 'Seu carrinho esta vazio'}
             </tbody>
           </table>
-          <h2>Preço total:</h2>
-          <span
-            data-testid="customer_checkout__element-order-total-price"
-          >
-            {convertTotal(priceTotal)}
-          </span>
+          <div className="checkout_price_container">
+            <p>Total:</p>
+            <p
+              data-testid="customer_checkout__element-order-total-price"
+            >
+              {`R$${convertTotal(priceTotal)}`}
+            </p>
+          </div>
         </>
-      ) : 'Seu carrinho esta vazio'}
+      ) : (
+        <div className="empty_bag_container">
+          <img src={ sadface } alt="sacola vazio" width={ 300 } />
+          <h1>Sua sacola está vazia</h1>
+        </div>
+      )}
     </div>
   );
 }
