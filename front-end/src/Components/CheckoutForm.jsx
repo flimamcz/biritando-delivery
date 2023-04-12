@@ -41,11 +41,11 @@ export default function CheckoutForm() {
   }, [getSellers]);
 
   return (
-    <div>
-      <h2>Detalhes e Endereço para Entrega</h2>
-      <form>
-        <label htmlFor="seller">
-          <p>P. Vendedora Responsável:</p>
+    <div className="checkout_form_container">
+      <h1 className="checkout_form_title">Detalhes e Endereço para Entrega</h1>
+      <form className="checkout_form">
+        <label className="checkout_form_label" htmlFor="seller">
+          <h4>P. Vendedora Responsável:</h4>
           <select
             name="sellerId"
             data-testid="customer_checkout__select-seller"
@@ -63,8 +63,8 @@ export default function CheckoutForm() {
           </select>
         </label>
 
-        <label htmlFor="address">
-          <p>Endereço</p>
+        <label className="checkout_form_label" htmlFor="address">
+          <h4>Endereço</h4>
           <input
             onChange={ handleChange }
             name="deliveryAddress"
@@ -74,8 +74,8 @@ export default function CheckoutForm() {
           />
         </label>
 
-        <label htmlFor="number">
-          <p>Número</p>
+        <label className="checkout_form_label" htmlFor="number">
+          <h4>Número</h4>
           <input
             onChange={ handleChange }
             name="deliveryNumber"
@@ -85,7 +85,9 @@ export default function CheckoutForm() {
           />
         </label>
         <button
+          className="submit_button"
           onClick={ createSale }
+          disabled={ !cartItems.length }
           type="submit"
           data-testid="customer_checkout__button-submit-order"
         >
