@@ -33,7 +33,9 @@ function LoginForm() {
   return (
     <main className="main-login">
       <section className="right-login">
-        <img src={ logo } alt="logo imagem" />
+        <div className="login_logo">
+          <img src={ logo } alt="logo imagem" />
+        </div>
         <form className="card-login">
           <h1>Login</h1>
           <label htmlFor="email-input" className="text-field">

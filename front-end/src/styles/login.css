@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 .main-login {
   align-content: center;
   align-items: center;
@@ -10,19 +15,11 @@
   background-position: bottom;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
-  width: 100vw;
 }
 
-.left-login > h1 {
-  color: #f9cb00;
-  font-size: 3vw;
-  margin-bottom: 20px;
-}
-
-.login-img {
-  width: 35vw;
+.login_logo {
+  position: relative;
 }
 
 .card-login {
@@ -33,6 +30,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 100px;
+  min-width: 500px;
   padding: 30px 35px;
 }
 
