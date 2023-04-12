@@ -6,29 +6,34 @@
 
 /* Header */
 header {
-  display: flex;
-  flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px 50px;
   background-color: #272626;
   box-shadow: 0 3px 10px #5a5a5a;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   margin-bottom: 20px;
+  padding: 20px 50px;
 }
 
 nav {
-  list-style: none;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 20px;
   color: #f9bf00;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0 20px;
 }
 
 header a {
-  text-decoration: none;
   color: #f9bf00;
+  text-decoration: none;
   transition: all 0.3s ease 0s;
+}
+
+.links_section a {
+  border-bottom: #3f3f3f solid 2px;
+  font-family: Courier New , Courier , monospace;
 }
 
 header a:hover {
@@ -38,45 +43,41 @@ header a:hover {
 .links_section {
   display: flex;
   flex-grow: 2;
-  justify-content: center;
-  gap: 20px;
   font-size: 3em;
+  gap: 20px;
+  justify-content: center;
 }
 
-.links_section a {
-  font-family: 'Courier New', Courier, monospace;
-  border-bottom: #3f3f3f solid 2px;
-}
 
 .user_section {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: #f9bf00;
-  padding: 15px;
   border-radius: 25px;
-  font-family: 'Lucida Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  font-family: Lucida Sans , sans-serif;
+  padding: 15px;
 }
 
 .profile_container {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 10px;
 }
 
 .profile_icon {
-  width: 40px;
   color: #272626;
+  width: 40px;
 }
 
 .nav_button {
   background-color: #272626;
   border: none;
   border-radius: 50px;
-  font-size: 1em;
-  font-weight: 550;
   color: #f9bf00;
   cursor: pointer;
+  font-size: 1em;
+  font-weight: 550;
   padding: 5px 10px;
   transition: all 0.3s ease 0s;
 }

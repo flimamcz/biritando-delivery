@@ -4,7 +4,6 @@
 }
 
 body {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -16,13 +15,11 @@ body {
   background-position: bottom;
   display: flex;
   flex-direction: column;
-  height: 95vh;
   justify-content: center;
 }
 
 .login_logo {
   position: relative;
-  bottom: 2em;
 }
 
 .card-login {
@@ -33,9 +30,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 30px 35px;
-  min-width: 500px;
   margin-bottom: 100px;
+  min-width: 500px;
+  padding: 30px 35px;
 }
 
 .card-login > h1 {
