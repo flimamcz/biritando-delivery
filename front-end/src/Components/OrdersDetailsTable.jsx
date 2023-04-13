@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
 import { convertTotal } from '../utils/formatValues';
+import '../styles/OrdersDetailsTable.css';
 
 function OrderDetailsTable(props) {
   const { type } = props;
@@ -26,7 +27,7 @@ function OrderDetailsTable(props) {
   }, [getOrder]);
 
   return (
-    <div>
+    <div className="container">
       <table>
         <thead>
           <tr>
@@ -61,22 +62,21 @@ function OrderDetailsTable(props) {
                   }
                 >
                   {e.SalesProducts.quantity}
+                  x
                 </td>
                 <td
                   data-testid={
                     `${type}_order_details__element-order-table-unit-price-${i}`
                   }
                 >
-                  {convertTotal(e.price)}
-
+                  {`R$${convertTotal(e.price)}`}
                 </td>
                 <td
                   data-testid={
                     `${type}_order_details__element-order-table-sub-total-${i}`
                   }
                 >
-                  {convertTotal((e.price * e.SalesProducts.quantity))}
-
+                  {`R$${convertTotal((e.price * e.SalesProducts.quantity))}`}
                 </td>
               </tr>
             ))
@@ -84,10 +84,12 @@ function OrderDetailsTable(props) {
         </tbody>
       </table>
       <h2
+        className="total-price"
         data-testid={
           `${type}_order_details__element-order-total-price`
         }
       >
+        TOTAL: R$
         {convertTotal(total)}
       </h2>
     </div>

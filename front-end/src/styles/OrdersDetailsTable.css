@@ -1,0 +1,42 @@
+.container {
+  border-bottom: #c2c2c2 1px solid;
+  display: flex;
+  flex-direction: column;
+  font-family: Segoe UI , sans-serif;
+  gap: 15px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  width: 80%;
+}
+
+.container table {
+  border-collapse: collapse;
+  min-height: 30vh;
+  min-width: 70vw;
+}
+
+.container td, .container th {
+  border-bottom: #f9bf00 solid 2px;
+  padding: 8px;
+  transition: 0.5s;
+}
+
+.container th {
+  background-color: #f9bf00;
+  color: #272626;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: left;
+}
+
+.total-price {
+  background-color: #f3bb02;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.1);
+  cursor: default;
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+  width: 220px;
+}

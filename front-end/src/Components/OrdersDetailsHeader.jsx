@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
 import StatusButton from './StatusButton';
 import { addZerosOnRightSide, convertDate } from '../utils/formatValues';
+import '../styles/OrdersDetailsHeader.css';
 
 function OrderDetailsHeader(props) {
   const { type } = props;
@@ -31,7 +32,7 @@ function OrderDetailsHeader(props) {
   const { saleDate, status, seller } = orderList;
 
   return (
-    <div>
+    <div className="container-header-order-details">
       <div
         data-testid={ `${type}_order_details__element-order-details-label-order-id` }
       >
@@ -45,7 +46,7 @@ function OrderDetailsHeader(props) {
               `${type}_order_details__element-order-details-label-seller-name`
             }
           >
-            <span>{ `P. Vend: ${seller.name}` }</span>
+            <span className="text-header">{ `P. Vend: ${seller.name}` }</span>
           </div>
         )
       }
@@ -66,9 +67,13 @@ function OrderDetailsHeader(props) {
         </h2>
       </div>
       <div
+        className="btn-status"
         data-testid={ `${type}_order_details__button-delivery-check` }
       >
-        <StatusButton getOrder={ getOrder } currentStatus={ status } />
+        <StatusButton
+          getOrder={ getOrder }
+          currentStatus={ status }
+        />
       </div>
     </div>
   );
