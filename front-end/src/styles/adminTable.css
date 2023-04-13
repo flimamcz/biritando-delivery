@@ -1,0 +1,27 @@
+.usersTable {
+  border-collapse: collapse;
+  font-family: Segoe UI , Tahoma , Geneva , Verdana , sans-serif;
+  height: 50vh;
+  width: 98vw;
+}
+
+.usersTable th, td {
+  border-bottom: 2px solid #f9bf00;
+  padding: 5px 10px;
+}
+
+.usersTable tr:nth-child( even ) { background-color: #f2f2f2;}
+
+.usersTable tr:hover { background-color: #ddd;}
+
+.usersTable th {
+  background-color: #f9bf00;
+  color: white;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: left;
+}
+
+.imgDelete {
+  cursor: pointer;
+}

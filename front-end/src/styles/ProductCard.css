@@ -7,14 +7,14 @@
   margin: 50px auto;
   row-gap: 40px;
   width: 80%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+input[ type = 'number' ]::-webkit-inner-spin-button {
+  appearance: none;
 }
 
-input {
-  -moz-appearance: textfield;
+input[ type = 'number' ] {
   appearance: textfield;
 }
 

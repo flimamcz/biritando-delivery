@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import { requestPost } from '../services/request';
+import '../styles/adminHeader.css';
 
 export default function AdminForm() {
   const {
@@ -55,11 +56,11 @@ export default function AdminForm() {
   }
 
   return (
-    <>
-      <h2>Cadastrar novo usuário</h2>
-      <form>
+    <div className="form-Container">
+      <h2 className="adm-titles">Cadastrar novo usuário:</h2>
+      <form className="campo">
         <label htmlFor="name">
-          Nome
+          Nome:
           <input
             type="text"
             name="registerNameInput"
@@ -71,7 +72,7 @@ export default function AdminForm() {
         </label>
 
         <label htmlFor="email">
-          Email
+          Email:
           <input
             type="text"
             name="registerEmailInput"
@@ -83,7 +84,7 @@ export default function AdminForm() {
         </label>
 
         <label htmlFor="password">
-          Senha
+          Senha:
           <input
             type="password"
             name="registerPasswordInput"
@@ -95,7 +96,7 @@ export default function AdminForm() {
         </label>
 
         <label htmlFor="role">
-          Tipo
+          Tipo:
           <select
             name="registerRoleInput"
             data-testid="admin_manage__select-role"
@@ -110,26 +111,32 @@ export default function AdminForm() {
 
         <button
           type="submit"
+          className="button"
           disabled={ isRegisterDisabled }
           data-testid="admin_manage__button-register"
           onClick={ sendRegisterRequest }
         >
           CADASTRAR
         </button>
-        <br />
-        {failedRequest && (
-          <span data-testid="admin_manage__element-invalid-register">
-            Erro ao realizar cadastro!
-          </span>
-        )}
-        {
-          sucessRequest && (
-            <span data-testid="admin_manage__element-valid-register">
-              Usuário cadastro com sucesso!
-            </span>
-          )
-        }
       </form>
-    </>
+      {failedRequest && (
+        <p
+          data-testid="admin_manage__element-invalid-register"
+          className="error-msg"
+        >
+          Erro ao realizar cadastro!
+        </p>
+      )}
+      {
+        sucessRequest && (
+          <p
+            data-testid="admin_manage__element-valid-register"
+            className="error-msg"
+          >
+            Usuário cadastro com sucesso!
+          </p>
+        )
+      }
+    </div>
   );
 }

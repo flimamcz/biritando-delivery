@@ -1,6 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import { requestDelete } from '../services/request';
 import MyContext from '../context/MyContext';
+import '../styles/adminTable.css';
+import buttonDelete from '../images/trash.svg';
 
 function UsersTable() {
   const { getUsers, usersList } = useContext(MyContext);
@@ -16,8 +18,8 @@ function UsersTable() {
 
   return (
     <div>
-      <h2>Lista de usuários</h2>
-      <table>
+      <h2 className="adm-titles">Lista de usuários:</h2>
+      <table className="usersTable">
         <thead>
           <tr>
             <th>Item</th>
@@ -47,15 +49,21 @@ function UsersTable() {
                   {role}
                 </td>
                 <td>
-                  <button
-                    data-testid={ `admin_manage__element-user-table-remove-${index}` }
-                    type="button"
-                    disabled={ id === 1 }
-                    onClick={ () => removeUser(id) }
-                  >
-                    Excluir
-                  </button>
-                  {}
+                  {
+                    id !== 1 && (
+                      <button
+                        data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                        type="button"
+                        onClick={ () => removeUser(id) }
+                      >
+                        <img
+                          className="imgDelete"
+                          src={ buttonDelete }
+                          alt="botão de deletar"
+                        />
+                      </button>
+                    )
+                  }
                 </td>
               </tr>
             );
