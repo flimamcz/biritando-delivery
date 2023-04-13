@@ -5,52 +5,55 @@ import { addZerosOnRightSide, convertDate, convertTotal } from '../utils/formatV
 
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
   return (
-    <li key={ id } className="card-order">
-      <Link to={ `/${prop}/orders/${id}` }>
-        <h2
-          data-testid={ `${prop}_orders__element-order-id-${id}` }
-          className="number-order"
-        >
-          {
-            `PEDIDO: ${addZerosOnRightSide(id)}`
-          }
-        </h2>
-        <h3
-          data-testid={ `${prop}_orders__element-delivery-status-${id}` }
-          className="status-order"
-        >
-          {status}
+    <Link className="card-order" to={ `/${prop}/orders/${id}` }>
+      <li key={ id }>
+        <div className="order-header">
+          <h2
+            data-testid={ `${prop}_orders__element-order-id-${id}` }
+            className="number-order"
+          >
+            {
+              `PEDIDO: ${addZerosOnRightSide(id)}`
+            }
+          </h2>
+          <h3
+            data-testid={ `${prop}_orders__element-delivery-status-${id}` }
+            className="status-order"
+          >
+            {status}
+          </h3>
+        </div>
+        <div className="order-body">
+          <h3
+            data-testid={ `${prop}_orders__element-order-date-${id}` }
+            className="date-order"
+          >
+            {
+              `DATA: ${convertDate(saleDate)}`
+            }
 
-        </h3>
-        <h3
-          data-testid={ `${prop}_orders__element-order-date-${id}` }
-          className="date-order"
-        >
+          </h3>
+          <h2
+            data-testid={ `${prop}_orders__element-card-price-${id}` }
+            className="price-order"
+          >
+            {
+              `TOTAL: R$${convertTotal(totalPrice)}`
+            }
+          </h2>
           {
-            `DATA: ${convertDate(saleDate)}`
+            prop === 'customer' && (
+              <h2
+                data-testid={ `${prop}_orders__element-card-address-${id}` }
+                className="address-order"
+              >
+                {`ENDEREÇO: ${deliveryAddress}`}
+              </h2>
+            )
           }
-
-        </h3>
-        <h2
-          data-testid={ `${prop}_orders__element-card-price-${id}` }
-          className="price-order"
-        >
-          {
-            `TOTAL: ${convertTotal(totalPrice)}`
-          }
-        </h2>
-        {
-          prop === 'customer' && (
-            <h2
-              data-testid={ `${prop}_orders__element-card-address-${id}` }
-              className="address-order"
-            >
-              {`ENDEREÇO: ${deliveryAddress}`}
-            </h2>
-          )
-        }
-      </Link>
-    </li>
+        </div>
+      </li>
+    </Link>
   );
 }
 

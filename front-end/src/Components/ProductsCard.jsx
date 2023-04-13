@@ -93,7 +93,7 @@ export default class ProductsCard extends Component {
           data-testid={ `customer_products__element-card-price-${id}` }
           className="price-product"
         >
-          {Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+          {`R$${Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`}
         </p>
         <div className="section-buttons-input">
           <button

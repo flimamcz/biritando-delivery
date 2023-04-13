@@ -18,6 +18,7 @@ function Order() {
   return (
     <>
       <NavBar type={ typeNav } />
+      <h1 className="order-title">LISTA DE PEDIDOS</h1>
       <ul className="orders-container">
         {ordersLists.length ? (
           ordersLists.map((item, index) => {
