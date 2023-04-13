@@ -8,6 +8,7 @@ import CustomerOrdersDetails from './Pages/CustomerOrdersDetails';
 import SellerOrdersDetails from './Pages/SellerOrdersDetails';
 import Checkout from './Pages/Checkout';
 import Order from './Pages/Order';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/customer/orders/:id" component={ CustomerOrdersDetails } />
       <Route exact path="/seller/orders" component={ Order } />
       <Route path="/seller/orders/:id" component={ SellerOrdersDetails } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
