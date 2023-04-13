@@ -28,9 +28,9 @@ function OrderDetailsTable(props) {
 
   return (
     <div className="container">
-      <table className="container-table">
+      <table>
         <thead>
-          <tr className="content-tr">
+          <tr>
             <th>Item</th>
             <th>Descrição</th>
             <th>Quantidade</th>
@@ -38,10 +38,10 @@ function OrderDetailsTable(props) {
             <th>Sub-total</th>
           </tr>
         </thead>
-        <tbody className="content">
+        <tbody>
           {
             productsList.map((e, i) => (
-              <tr key={ i } className="content-tr-tbody">
+              <tr key={ i }>
                 <td
                   data-testid={
                     `${type}_order_details__element-order-table-item-number-${i}`
@@ -62,22 +62,21 @@ function OrderDetailsTable(props) {
                   }
                 >
                   {e.SalesProducts.quantity}
+                  x
                 </td>
                 <td
                   data-testid={
                     `${type}_order_details__element-order-table-unit-price-${i}`
                   }
                 >
-                  {convertTotal(e.price)}
-
+                  {`R$${convertTotal(e.price)}`}
                 </td>
                 <td
                   data-testid={
                     `${type}_order_details__element-order-table-sub-total-${i}`
                   }
                 >
-                  {convertTotal((e.price * e.SalesProducts.quantity))}
-
+                  {`R$${convertTotal((e.price * e.SalesProducts.quantity))}`}
                 </td>
               </tr>
             ))
@@ -91,7 +90,6 @@ function OrderDetailsTable(props) {
         }
       >
         TOTAL: R$
-        &nbsp;
         {convertTotal(total)}
       </h2>
     </div>
