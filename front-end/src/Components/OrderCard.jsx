@@ -5,36 +5,55 @@ import { addZerosOnRightSide, convertDate, convertTotal } from '../utils/formatV
 
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
   return (
-    <li key={ id }>
-      <Link to={ `/${prop}/orders/${id}` }>
-        <p data-testid={ `${prop}_orders__element-order-id-${id}` }>
-          {
-            addZerosOnRightSide(id)
-          }
+    <Link className="card-order" to={ `/${prop}/orders/${id}` }>
+      <li key={ id }>
+        <div className="order-header">
+          <h2
+            data-testid={ `${prop}_orders__element-order-id-${id}` }
+            className="number-order"
+          >
+            {
+              `PEDIDO: ${addZerosOnRightSide(id)}`
+            }
+          </h2>
+          <h3
+            data-testid={ `${prop}_orders__element-delivery-status-${id}` }
+            className="status-order"
+          >
+            {status}
+          </h3>
+        </div>
+        <div className="order-body">
+          <h3
+            data-testid={ `${prop}_orders__element-order-date-${id}` }
+            className="date-order"
+          >
+            {
+              `DATA: ${convertDate(saleDate)}`
+            }
 
-        </p>
-        <p data-testid={ `${prop}_orders__element-delivery-status-${id}` }>{status}</p>
-        <p data-testid={ `${prop}_orders__element-order-date-${id}` }>
+          </h3>
+          <h2
+            data-testid={ `${prop}_orders__element-card-price-${id}` }
+            className="price-order"
+          >
+            {
+              `TOTAL: R$${convertTotal(totalPrice)}`
+            }
+          </h2>
           {
-            convertDate(saleDate)
+            prop === 'customer' && (
+              <h2
+                data-testid={ `${prop}_orders__element-card-address-${id}` }
+                className="address-order"
+              >
+                {`ENDEREÇO: ${deliveryAddress}`}
+              </h2>
+            )
           }
-
-        </p>
-        <p data-testid={ `${prop}_orders__element-card-price-${id}` }>
-          {
-            convertTotal(totalPrice)
-          }
-
-        </p>
-        {
-          prop === 'customer' && (
-            <p data-testid={ `${prop}_orders__element-card-address-${id}` }>
-              {deliveryAddress}
-            </p>
-          )
-        }
-      </Link>
-    </li>
+        </div>
+      </li>
+    </Link>
   );
 }
 

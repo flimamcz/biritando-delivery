@@ -7,6 +7,7 @@
   margin: 50px auto;
   row-gap: 40px;
   width: 80%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 input[ type = 'number' ]::-webkit-inner-spin-button {
@@ -16,7 +17,6 @@ input[ type = 'number' ]::-webkit-inner-spin-button {
 input[ type = 'number' ] {
   appearance: textfield;
 }
-
 
 .card-product {
   align-items: center;
