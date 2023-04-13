@@ -1,0 +1,35 @@
+a {
+  text-decoration: none;
+}
+
+.orders-container {
+  align-items: center;
+  column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  justify-content: center;
+  margin: 50px auto;
+  row-gap: 40px;
+  width: 30%;
+}
+
+.card-order {
+  align-items: center;
+  background-color: white;
+  border: 4px solid #f9cb00;
+  border-radius: 5px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.13);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 350px;
+  justify-content: center;
+  margin: 0 10px;
+  padding: 20px;
+}
+
+.address-order, .price-order, .date-order, .status-order, .number-order {
+  color: #302e2e;
+  font-size: 20px;
+  font-weight: 600;
+}

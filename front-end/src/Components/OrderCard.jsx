@@ -5,32 +5,48 @@ import { addZerosOnRightSide, convertDate, convertTotal } from '../utils/formatV
 
 function OrderCard({ prop, id, status, saleDate, totalPrice, deliveryAddress }) {
   return (
-    <li key={ id }>
+    <li key={ id } className="card-order">
       <Link to={ `/${prop}/orders/${id}` }>
-        <p data-testid={ `${prop}_orders__element-order-id-${id}` }>
+        <h2
+          data-testid={ `${prop}_orders__element-order-id-${id}` }
+          className="number-order"
+        >
           {
-            addZerosOnRightSide(id)
+            `PEDIDO: ${addZerosOnRightSide(id)}`
+          }
+        </h2>
+        <h3
+          data-testid={ `${prop}_orders__element-delivery-status-${id}` }
+          className="status-order"
+        >
+          {status}
+
+        </h3>
+        <h3
+          data-testid={ `${prop}_orders__element-order-date-${id}` }
+          className="date-order"
+        >
+          {
+            `DATA: ${convertDate(saleDate)}`
           }
 
-        </p>
-        <p data-testid={ `${prop}_orders__element-delivery-status-${id}` }>{status}</p>
-        <p data-testid={ `${prop}_orders__element-order-date-${id}` }>
+        </h3>
+        <h2
+          data-testid={ `${prop}_orders__element-card-price-${id}` }
+          className="price-order"
+        >
           {
-            convertDate(saleDate)
+            `TOTAL: ${convertTotal(totalPrice)}`
           }
-
-        </p>
-        <p data-testid={ `${prop}_orders__element-card-price-${id}` }>
-          {
-            convertTotal(totalPrice)
-          }
-
-        </p>
+        </h2>
         {
           prop === 'customer' && (
-            <p data-testid={ `${prop}_orders__element-card-address-${id}` }>
-              {deliveryAddress}
-            </p>
+            <h2
+              data-testid={ `${prop}_orders__element-card-address-${id}` }
+              className="address-order"
+            >
+              {`ENDEREÇO: ${deliveryAddress}`}
+            </h2>
           )
         }
       </Link>

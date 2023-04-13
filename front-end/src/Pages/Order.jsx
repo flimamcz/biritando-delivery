@@ -3,6 +3,7 @@ import NavBar from '../Components/NavBar';
 import OrderCard from '../Components/OrderCard';
 import { navBarCustomer, navBarSeller } from '../utils/navBarinfo';
 import MyContext from '../context/MyContext';
+import '../styles/orders.css';
 
 function Order() {
   const { role } = JSON.parse(localStorage.getItem('user'));
@@ -15,9 +16,9 @@ function Order() {
   }, [getOrders, role, userId]);
 
   return (
-    <div>
+    <>
       <NavBar type={ typeNav } />
-      <ul>
+      <ul className="orders-container">
         {ordersLists.length ? (
           ordersLists.map((item, index) => {
             const { id, status, saleDate, totalPrice, deliveryAddress } = item;
@@ -38,7 +39,7 @@ function Order() {
           <p>Não tem pedidos</p>
         )}
       </ul>
-    </div>
+    </>
   );
 }
 
