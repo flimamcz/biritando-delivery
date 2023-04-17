@@ -64,7 +64,9 @@ const register = async (name, email, password, role = 'customer') => {
 };
 
 const getAllUsers = async () => {
-  const users = await Users.findAll({});
+  const users = await Users.findAll({
+    attributes: { exclude: 'password' },
+  });
   return users;
 };
 
