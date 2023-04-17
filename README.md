@@ -55,3 +55,25 @@
     }
   ]
    ```
+   
+   
+   # POST <b>/register</b>
+   - Body Obrigatório
+   ```
+    {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "some_strong_password"
+    }
+   
+   ```
+   
+   # POST <b>/login</b>
+   - Body Obrigatório
+   ```
+    {
+      "email": "johndoe@example.com",
+      "password": "some_strong_password"
+    }
+   
+   ```
