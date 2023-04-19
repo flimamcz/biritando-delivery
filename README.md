@@ -10,7 +10,9 @@
  - Gerenciar o estado do aplicativo usando context api ;
  - localStorage para manter os dados;
 
- ## GET <b>/user</b>
+## Endpoints
+
+ ### GET <b>/user</b>
   - Lista todos os usuários registrados.
    ```
         [
@@ -30,7 +32,7 @@
    ```
    
    
-   ## GET <b>/seller</b>
+   ### GET <b>/seller</b>
   - Lista todos os vendedores registrados.
    ```
         [
@@ -49,7 +51,7 @@
         ]
    ```
    
-   ## GET <b>/customer/products</b>
+   ### GET <b>/customer/products</b>
   - Lista todos os produtos registrados.
    ```
   [     
@@ -68,8 +70,11 @@
   ]
    ```
    
+   ### GET <b>/customer/orders
+   - Lista todos os pedidos registrados do usuário
+  
    
-   # POST <b>/register</b>
+   ### POST <b>/register</b>
    - Body Obrigatório
    ```
     {
@@ -80,7 +85,7 @@
    
    ```
    
-   # POST <b>/login</b>
+   ### POST <b>/login</b>
    - Body Obrigatório
    ```
     {
@@ -89,4 +94,8 @@
     }
    
    ```
+  
+  ## Tecnologias utilizadas
+  
+   <a href="https://react.dev/" target="_blank">React</a>
    
