@@ -109,9 +109,38 @@
   
    - Pré-requisitos
      - Node (> 16)
-  - Clone o projeto
+  - 1 Clone o projeto
   
     ```
       git clone git@github.com:flimamcz/biritando-delivery.git
+    ```
+  
+  - 2 Entre na pasta do projeto
+  
+    ```
+      cd biritando-delivery/
+    ```
+  - 3 Instale as depedências na pasta raiz
+  
+   ```
+      npm install
+   ```
+  
+  - 4 Entre na pasta front-end e instale as depedências
+  
+    ```
+       cd front-end && npm install
+    ```
+  
+  - 5 Entre na pasta back-end e instale as depedências
+  
+    ```
+       cd back-end && npm install
+    ```
+  
+  - 6 E por último na pasta raiz execute o seguinte comando
+  
+    ```
+       npm eun pretest
     ```
    
