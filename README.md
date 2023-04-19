@@ -104,4 +104,6 @@
    <a href="https://sequelize.org/" target="_blank">Sequelize</a>
    <a href="https://www.mysql.com/" target="_blank">Mysql</a>
    <a href="https://jwt.io/" target="_blank">JWT</a>
+  
+  ## Iniciando o projeto
    
