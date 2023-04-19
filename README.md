@@ -144,4 +144,18 @@
     ```
        npm run pretest
     ```
+  
+  ### BÔNUS
+  
+   #### Criando container mysql via docker.
+  
+   - Para executarmos um container do MYSQL, execute o seguinte comando. 
+      - Obs: Para executar esse comando é necessário ter o docker instalado e configurando na máquina. 
+      Veja como aqui: <a href="https://docs.docker.com/get-docker/">Instalação do docker</a>
+  
+  
+  ```
+    docker container run --name container-mysql -e MYSQL_ROOT_PASSWORD=senha-mysql -d -p 3306:3306 mysql:5.7
+  ```
+  
    
