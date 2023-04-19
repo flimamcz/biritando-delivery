@@ -106,4 +106,12 @@
    <a href="https://jwt.io/" target="_blank">JWT</a>
   
   ## Iniciando o projeto
+  
+   - Pré-requisitos
+     - Node (> 16)
+  - Clone o projeto
+  
+    ```
+      git clone git@github.com:flimamcz/biritando-delivery.git
+    ```
    
