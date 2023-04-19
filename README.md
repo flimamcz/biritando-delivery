@@ -1,5 +1,7 @@
 # Biritando 🍺
 
+<img src="./delivery-birita.gif">
+
 ### Aprendizados Técnicos
 
  - Criar API RESTful usando Node.js e Express ;
