@@ -1,3 +1,15 @@
+# Biritando 🍺
+
+### Aprendizados Técnicos
+
+ - Criar API RESTful usando Node.js e Express ;
+ - Utilizar arquivos estáticos usando o Express;
+ - Gerenciar um banco de dados SQL usando Sequelize ;
+ - Autenticar usuários usando JWT ;
+ - Requisições para nossa API usando Axios ;
+ - Gerenciar o estado do aplicativo usando context api ;
+ - localStorage para manter os dados;
+
  ## GET <b>/user</b>
   - Lista todos os usuários registrados.
    ```
