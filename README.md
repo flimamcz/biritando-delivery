@@ -97,18 +97,19 @@
   
   ## Tecnologias utilizadas
   
-   <a href="https://react.dev/" target="_blank">React</a>
-   <a href="https://axios-http.com/ptbr/" target="_blank">Axios</a>
-   <a href="https://nodejs.org/en/about" target="_blank">NodeJS</a>
-   <a href="https://expressjs.com/" target="_blank">Express</a>
-   <a href="https://sequelize.org/" target="_blank">Sequelize</a>
-   <a href="https://www.mysql.com/" target="_blank">Mysql</a>
-   <a href="https://jwt.io/" target="_blank">JWT</a>
+   - <p><a href="https://react.dev/" target="_blank">React</a></p>
+   - <p><a href="https://axios-http.com/ptbr/" target="_blank">Axios</a></p>
+   - <p><a href="https://nodejs.org/en/about" target="_blank">NodeJS</a></p>
+   - <p><a href="https://expressjs.com/" target="_blank">Express</a></p>
+   - <p><a href="https://sequelize.org/" target="_blank">Sequelize</a></p>
+   - <p><a href="https://www.mysql.com/" target="_blank">Mysql</a></p>
+   - <p><a href="https://jwt.io/" target="_blank">JWT</a></p>
   
   ## Iniciando o projeto
   
    - Pré-requisitos
      - Node (> 16)
+     - Mysql (Local ou container docker) - Aprenda a configurar via docker <a href="#tutorial-docker-mysql">Aqui</a>
   - 1 Clone o projeto
   
     ```
@@ -122,9 +123,9 @@
     ```
   - 3 Instale as depedências na pasta raiz
   
-   ```
-      npm install
-   ```
+     ```
+        npm install
+     ```
   
   - 4 Entre na pasta front-end e instale as depedências
   
@@ -141,6 +142,6 @@
   - 6 E por último na pasta raiz execute o seguinte comando
   
     ```
-       npm eun pretest
+       npm run pretest
     ```
    
