@@ -97,5 +97,11 @@
   
   ## Tecnologias utilizadas
   
-   <a href="https://react.dev/" target="_blank">React</a>
+    - <a href="https://react.dev/" target="_blank">React</a>
+    - <a href="https://axios-http.com/ptbr/" target="_blank">Axios</a>
+    - <a href="https://nodejs.org/en/about" target="_blank">NodeJS</a>
+    - <a href="https://expressjs.com/" target="_blank">Express</a>
+    - <a href="https://sequelize.org/" target="_blank">Sequelize</a>
+    - <a href="https://www.mysql.com/" target="_blank">Mysql</a>
+    - <a href="https://jwt.io/" target="_blank">JWT</a>
    
